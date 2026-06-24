@@ -15,6 +15,7 @@ namespace presentation
 
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
             pnlComputerSummary.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pnlComputerSummary.Width, pnlComputerSummary.Height, 20, 20));
+            pnlComputerInformation.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pnlComputerInformation.Width, pnlComputerInformation.Height, 20, 20));
         }
 
         private void frmNexoraAgent_Load(object sender, EventArgs e)

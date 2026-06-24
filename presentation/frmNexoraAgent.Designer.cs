@@ -29,6 +29,18 @@
         private void InitializeComponent()
         {
             pnlMain = new Panel();
+            pnlComputerInformation = new Panel();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            label7 = new Label();
+            label8 = new Label();
+            label9 = new Label();
+            label10 = new Label();
+            label11 = new Label();
+            label12 = new Label();
+            label13 = new Label();
+            label3 = new Label();
             pnlComputerSummary = new Panel();
             label2 = new Label();
             pictureBox4 = new PictureBox();
@@ -56,6 +68,7 @@
             pbClose = new PictureBox();
             pbMinimize = new PictureBox();
             pnlMain.SuspendLayout();
+            pnlComputerInformation.SuspendLayout();
             pnlComputerSummary.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -72,6 +85,7 @@
             // pnlMain
             // 
             pnlMain.BackColor = Color.Black;
+            pnlMain.Controls.Add(pnlComputerInformation);
             pnlMain.Controls.Add(pnlComputerSummary);
             pnlMain.Controls.Add(label1);
             pnlMain.Controls.Add(lbTitle);
@@ -83,6 +97,146 @@
             pnlMain.Size = new Size(1147, 715);
             pnlMain.TabIndex = 1;
             pnlMain.Paint += pnlMain_Paint;
+            // 
+            // pnlComputerInformation
+            // 
+            pnlComputerInformation.BackColor = Color.FromArgb(26, 26, 26);
+            pnlComputerInformation.Controls.Add(label4);
+            pnlComputerInformation.Controls.Add(label5);
+            pnlComputerInformation.Controls.Add(label6);
+            pnlComputerInformation.Controls.Add(label7);
+            pnlComputerInformation.Controls.Add(label8);
+            pnlComputerInformation.Controls.Add(label9);
+            pnlComputerInformation.Controls.Add(label10);
+            pnlComputerInformation.Controls.Add(label11);
+            pnlComputerInformation.Controls.Add(label12);
+            pnlComputerInformation.Controls.Add(label13);
+            pnlComputerInformation.Controls.Add(label3);
+            pnlComputerInformation.Location = new Point(25, 362);
+            pnlComputerInformation.Name = "pnlComputerInformation";
+            pnlComputerInformation.Size = new Size(315, 324);
+            pnlComputerInformation.TabIndex = 4;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(26, 188);
+            label4.Name = "label4";
+            label4.Size = new Size(111, 13);
+            label4.TabIndex = 39;
+            label4.Text = "Tiempo encendido";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("SansSerif", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 2);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(149, 187);
+            label5.Name = "label5";
+            label5.Size = new Size(153, 14);
+            label5.TabIndex = 38;
+            label5.Text = "1 dias, 4 horas, 20 minutos";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(26, 161);
+            label6.Name = "label6";
+            label6.Size = new Size(89, 13);
+            label6.TabIndex = 37;
+            label6.Text = "Usuario actual";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("SansSerif", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 2);
+            label7.ForeColor = Color.White;
+            label7.Location = new Point(149, 160);
+            label7.Name = "label7";
+            label7.Size = new Size(50, 14);
+            label7.TabIndex = 36;
+            label7.Text = "Usuario";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(26, 130);
+            label8.Name = "label8";
+            label8.Size = new Size(76, 13);
+            label8.TabIndex = 35;
+            label8.Text = "Arquitectura";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("SansSerif", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 2);
+            label9.ForeColor = Color.White;
+            label9.Location = new Point(149, 130);
+            label9.Name = "label9";
+            label9.Size = new Size(73, 14);
+            label9.TabIndex = 34;
+            label9.Text = "Arquitecture";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            label10.ForeColor = Color.White;
+            label10.Location = new Point(26, 100);
+            label10.Name = "label10";
+            label10.Size = new Size(48, 13);
+            label10.TabIndex = 33;
+            label10.Text = "Modelo";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold);
+            label11.ForeColor = Color.White;
+            label11.Location = new Point(26, 69);
+            label11.Name = "label11";
+            label11.Size = new Size(67, 13);
+            label11.TabIndex = 32;
+            label11.Text = "Fabricante";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("SansSerif", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 2);
+            label12.ForeColor = Color.White;
+            label12.Location = new Point(149, 100);
+            label12.Name = "label12";
+            label12.Size = new Size(49, 14);
+            label12.TabIndex = 31;
+            label12.Text = "Version";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("SansSerif", 8.999999F, FontStyle.Regular, GraphicsUnit.Point, 2);
+            label13.ForeColor = Color.White;
+            label13.Location = new Point(149, 69);
+            label13.Name = "label13";
+            label13.Size = new Size(80, 14);
+            label13.TabIndex = 30;
+            label13.Text = "NameSystem";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("LT Internet", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(26, 23);
+            label3.Name = "label3";
+            label3.Size = new Size(155, 18);
+            label3.TabIndex = 6;
+            label3.Text = "Informacion del sistema";
             // 
             // pnlComputerSummary
             // 
@@ -182,7 +336,7 @@
             // pictureBox2
             // 
             pictureBox2.Cursor = Cursors.Cross;
-            pictureBox2.Image = Properties.Resources.icon_arquitecture;
+            pictureBox2.Image = Properties.Resources.icon_timer;
             pictureBox2.Location = new Point(208, 180);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(19, 19);
@@ -193,7 +347,7 @@
             // pictureBox3
             // 
             pictureBox3.Cursor = Cursors.Cross;
-            pictureBox3.Image = Properties.Resources.icon_tag;
+            pictureBox3.Image = Properties.Resources.icon_user;
             pictureBox3.Location = new Point(208, 153);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(19, 19);
@@ -318,9 +472,9 @@
             lbHostname.ForeColor = Color.White;
             lbHostname.Location = new Point(202, 16);
             lbHostname.Name = "lbHostname";
-            lbHostname.Size = new Size(96, 19);
+            lbHostname.Size = new Size(87, 19);
             lbHostname.TabIndex = 1;
-            lbHostname.Text = "Hostaname";
+            lbHostname.Text = "Hostname";
             // 
             // pbDeviceType
             // 
@@ -401,6 +555,8 @@
             Load += frmNexoraAgent_Load;
             pnlMain.ResumeLayout(false);
             pnlMain.PerformLayout();
+            pnlComputerInformation.ResumeLayout(false);
+            pnlComputerInformation.PerformLayout();
             pnlComputerSummary.ResumeLayout(false);
             pnlComputerSummary.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
@@ -444,5 +600,17 @@
         private PictureBox pictureBox4;
         private Label label2;
         private Label lbSumaryArquitecture;
+        private Panel pnlComputerInformation;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private Label label7;
+        private Label label8;
+        private Label label9;
+        private Label label10;
+        private Label label11;
+        private Label label12;
+        private Label label13;
+        private Label label3;
     }
 }
