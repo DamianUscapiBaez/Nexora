@@ -1,4 +1,5 @@
 ﻿using entities;
+using System.Diagnostics;
 using System.Management;
 using System.Text;
 
@@ -8,15 +9,29 @@ namespace business
     {
         public static HardwareInfo GetHardwareInfo()
         {
-            var hardwareInfo = new HardwareInfo
+            var ramInfo = GetRamInfo();
+
+            return new HardwareInfo
             {
+                // CPU
                 Cpu = GetCpu(),
-                Ram = GetRam(),
+                CpuUsage = GetCpuUsage(),
+
+                // RAM
+                Ram = ramInfo.TotalGB,
+                RamUsedGB = ramInfo.UsedGB,
+                RamAvailableGB = ramInfo.AvailableGB,
+                RamUsagePercent = ramInfo.UsagePercent,
+
+                // GPU
+                Gpu = GetGpu(),
+
+                // Discos
                 Disks = GetDisks(),
+
+                // Monitores
                 Monitors = GetMonitors()
             };
-
-            return hardwareInfo;
         }
 
         private static string GetCpu()
@@ -30,18 +45,59 @@ namespace business
             }
         }
 
-        private static string GetRam()
+        private static float GetCpuUsage()
         {
-            using (var search = new ManagementObjectSearcher("SELECT Capacity FROM Win32_PhysicalMemory"))
+            using var cpuCounter = new PerformanceCounter("Processor","% Processor Time","_Total");
+
+            cpuCounter.NextValue();
+
+            Thread.Sleep(1000);
+
+            return cpuCounter.NextValue();
+        }
+
+        //private static string GetRam()
+        //{
+        //    using (var search = new ManagementObjectSearcher("SELECT Capacity FROM Win32_PhysicalMemory"))
+        //    {
+        //        long totalCapacity = 0;
+        //        foreach (ManagementObject obj in search.Get())
+        //        {
+        //            if (long.TryParse(obj["Capacity"]?.ToString(), out long capacity))
+        //                totalCapacity += capacity;
+        //        }
+        //        return $"{totalCapacity / (1024 * 1024 * 1024)} GB";
+        //    }
+        //}
+        private static (double UsedGB, double AvailableGB, double TotalGB, double UsagePercent) GetRamInfo()
+        {
+            using var searcher = new ManagementObjectSearcher("SELECT TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem");
+
+            foreach (ManagementObject obj in searcher.Get())
             {
-                long totalCapacity = 0;
-                foreach (ManagementObject obj in search.Get())
-                {
-                    if (long.TryParse(obj["Capacity"]?.ToString(), out long capacity))
-                        totalCapacity += capacity;
-                }
-                return $"{totalCapacity / (1024 * 1024 * 1024)} GB";
+                double totalGB = Convert.ToDouble(obj["TotalVisibleMemorySize"]) / 1024 / 1024;
+                double freeGB = Convert.ToDouble(obj["FreePhysicalMemory"]) / 1024 / 1024;
+                double usedGB = totalGB - freeGB;
+
+                return (
+                    Math.Round(usedGB, 2),
+                    Math.Round(freeGB, 2),
+                    Math.Round(totalGB, 2),
+                    Math.Round((usedGB / totalGB) * 100, 1)
+                );
             }
+
+            return (0, 0, 0, 0);
+        }
+        private static string GetGpu()
+        {
+            using var searcher =
+            new ManagementObjectSearcher("SELECT Name FROM Win32_VideoController");
+
+            foreach (ManagementObject obj in searcher.Get())
+                return obj["Name"]?.ToString();
+
+            return "Unknown";
         }
         private static List<Disk> GetDisks()
         {

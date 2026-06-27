@@ -103,9 +103,9 @@ namespace presentation.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon_arquitecture {
+        internal static System.Drawing.Bitmap icon_disk {
             get {
-                object obj = ResourceManager.GetObject("icon_arquitecture", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_disk", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,29 @@ namespace presentation.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon_tag {
+        internal static System.Drawing.Bitmap icon_gpu {
             get {
-                object obj = ResourceManager.GetObject("icon_tag", resourceCulture);
+                object obj = ResourceManager.GetObject("icon_gpu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_microprocessor {
+            get {
+                object obj = ResourceManager.GetObject("icon_microprocessor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_ram {
+            get {
+                object obj = ResourceManager.GetObject("icon_ram", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -126,16 +146,6 @@ namespace presentation.Properties {
         internal static System.Drawing.Bitmap icon_timer {
             get {
                 object obj = ResourceManager.GetObject("icon_timer", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icon_user {
-            get {
-                object obj = ResourceManager.GetObject("icon_user", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

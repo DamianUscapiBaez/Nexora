@@ -100,9 +100,9 @@ namespace presentation
             lbHostname.Text = computerInfo.OperatingSystem.HostName;
             lbModel.Text = computerInfo.Manufacturer + " " + computerInfo.Model;
             lbSumarySystem.Text = computerInfo.OperatingSystem.OperatingSystem;
-            lbSumaryVersion.Text = $"{computerInfo.OperatingSystem.OSVersion} (Compilación {computerInfo.OperatingSystem.OSBuild})";
-            lbSumaryArquitecture.Text = computerInfo.OperatingSystem.OSArchitecture;
-
+            lbSumaryMicroprocessor.Text = computerInfo.Hardware.Cpu;
+            lbSumaryGpu.Text = computerInfo.Hardware.Gpu;
+            lbSumaryRam.Text = computerInfo.Hardware.Ram.ToString();
             // MessageBox.Show(
             //    sb.ToString(),
             //    "+/9+785858585858584517069*9+9*8/9*08/*-06+85587+879+Computer Information",
