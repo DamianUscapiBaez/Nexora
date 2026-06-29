@@ -1,115 +1,126 @@
+using business;
+using Business;
 using entities;
+using Microsoft.VisualBasic.Devices;
 using presentation.Properties;
+using System.CodeDom.Compiler;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace presentation
 {
     public partial class frmNexoraAgent : Form
     {
+        // Variable para guardar el momento exacto en que se encendió la PC
+        private TimeSpan _initialUptime;
+        private DateTime _loadTime;
+
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(int left, int top, int right, int bottom, int widthEllipse, int heightEllipse);
+
         public frmNexoraAgent()
         {
             InitializeComponent();
 
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
             pnlComputerSummary.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pnlComputerSummary.Width, pnlComputerSummary.Height, 20, 20));
-            pnlComputerInformation.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pnlComputerInformation.Width, pnlComputerInformation.Height, 20, 20));
+            //pnlComputerInformation.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pnlComputerInformation.Width, pnlComputerInformation.Height, 20, 20));
         }
 
         private void frmNexoraAgent_Load(object sender, EventArgs e)
         {
             LoadInformation();
+            tmrRealTime.Start(); // Arranca el temporizador
         }
 
         private void LoadInformation()
         {
-            var computerInfo = business.ComputerInfoService.GetComputerInfo();
+            var _computerInfoCache = ComputerInfoService.GetComputerInfo();
 
-            StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine($"Manufacturer: {computerInfo.Manufacturer}");
-            sb.AppendLine($"Model: {computerInfo.Model}");
-            sb.AppendLine($"Serial Number: {computerInfo.SerialNumber}");
-            sb.AppendLine($"Computer Type: {computerInfo.ComputerType}");
+            if (_computerInfoCache == null) return;
 
-            if (computerInfo.OperatingSystem != null)
+            var hardwareObj = _computerInfoCache.Hardware;
+
+            if (_computerInfoCache.OperatingSystem != null)
             {
-                sb.AppendLine();
-                sb.AppendLine("=== OPERATING SYSTEM ===");
-                sb.AppendLine($"OS: {computerInfo.OperatingSystem.OperatingSystem}");
-                sb.AppendLine($"Version: {computerInfo.OperatingSystem.OSVersion}");
-                sb.AppendLine($"Build: {computerInfo.OperatingSystem.OSBuild}");
-                sb.AppendLine($"Architecture: {computerInfo.OperatingSystem.OSArchitecture}");
+                lbSumaryHostname.Text = _computerInfoCache.OperatingSystem.HostName;
+                lbSumaryTypeDevice.Text = _computerInfoCache.ComputerType.ToString();
+                lbSumaryModelAndBrand.Text = _computerInfoCache.Model;
+                lbSumaryNumberSerie.Text = _computerInfoCache.SerialNumber;
+                //lbSumarySystem.Text = _computerInfoCache.OperatingSystem.OperatingSystem;
             }
 
-            if (computerInfo.Hardware != null)
+            lbSumaryModelAndBrand.Text = $"{_computerInfoCache.Manufacturer} {_computerInfoCache.Model}";
+
+            if (hardwareObj != null)
             {
-                sb.AppendLine();
-                sb.AppendLine("=== HARDWARE ===");
-                sb.AppendLine($"CPU: {computerInfo.Hardware.Cpu}");
-                sb.AppendLine($"RAM: {computerInfo.Hardware.Ram}");
+                // Mapeos corregidos usando las nuevas propiedades en inglés de HardwareInfo
+                //lbSumaryMicroprocessor.Text = hardwareObj.CpuName; // .Cpu -> .CpuName
+                //lbSumaryGpu.Text = hardwareObj.GpuName; // .Gpu -> .GpuName
+                //lbSumaryRam.Text = $"{hardwareObj.TotalRam} GB {hardwareObj.RamType} {hardwareObj.RamSpeedMhz} Mhz";
 
-                if (computerInfo.Hardware.Disks != null)
+                // === LOGIC DETECCIÓN Y RESUMEN DE DISCOS ===
+                // Nota: Asegúrate de que tu modelo 'ComputerInfo' tenga asignada la propiedad correcta de capacidad si usas TotalGBDisk externamente,
+                // de lo contrario, si calculas por la lista de discos, puedes dejar el formateador.
+                //string formattedTotalSize = HardwareInfoService.FormatStorageSize(hardwareObj.to);
+
+                var uniqueMediaTypes = new List<string>();
+                if (hardwareObj.Disks != null)
                 {
-                    sb.AppendLine();
-                    sb.AppendLine("Disks:");
-
-                    foreach (var disk in computerInfo.Hardware.Disks)
+                    foreach (var disk in hardwareObj.Disks)
                     {
-                        sb.AppendLine($"• {disk.Model} - {disk.CapacityGB}");
+                        if (!uniqueMediaTypes.Contains(disk.MediaType))
+                        {
+                            uniqueMediaTypes.Add(disk.MediaType);
+                        }
                     }
                 }
 
-                if (computerInfo.Hardware.Monitors != null)
-                {
-                    sb.AppendLine();
-                    sb.AppendLine("Monitors:");
+                string diskTypesCombination = string.Join(" + ", uniqueMediaTypes);
+                //lbSumaryDisk.Text = $"{formattedTotalSize} ({diskTypesCombination})";
 
-                    foreach (var monitor in computerInfo.Hardware.Monitors)
-                    {
-                        sb.AppendLine(
-                            $"• Manufacturer: {monitor.Manufacturer}" +
-                            $"\n  Model: {monitor.Model}" +
-                            $"\n  Serial: {monitor.SerialNumber}");
-                    }
-                }
+                // GUARDAR EL TIEMPO INICIAL EN MEMORIA (Evita llamar a WMI en el Timer)
+                _initialUptime = hardwareObj.Uptime;
+                _loadTime = DateTime.Now;
             }
 
-            switch (computerInfo.ComputerType)
+            switch (_computerInfoCache.ComputerType)
             {
-                // Evaluamos directamente utilizando el Enum
                 case ComputerType.Desktop:
-                    pbDeviceType.Image = Properties.Resources.device_desktop;
+                    pbDeviceType.Image = Resources.device_desktop;
                     break;
-
                 case ComputerType.AllInOne:
-                    pbDeviceType.Image = Properties.Resources.device_AllInOne;
+                    pbDeviceType.Image = Resources.device_AllInOne;
                     break;
-
                 case ComputerType.Laptop:
-                    pbDeviceType.Image = Properties.Resources.device_laptop;
+                    pbDeviceType.Image = Resources.device_laptop;
                     break;
-
-                case ComputerType.Unknown:
                 default:
-                    pbDeviceType.Image = Properties.Resources.device_desktop;
+                    pbDeviceType.Image = Resources.device_desktop;
                     break;
             }
-            lbHostname.Text = computerInfo.OperatingSystem.HostName;
-            lbModel.Text = computerInfo.Manufacturer + " " + computerInfo.Model;
-            lbSumarySystem.Text = computerInfo.OperatingSystem.OperatingSystem;
-            lbSumaryMicroprocessor.Text = computerInfo.Hardware.Cpu;
-            lbSumaryGpu.Text = computerInfo.Hardware.Gpu;
-            lbSumaryRam.Text = computerInfo.Hardware.Ram.ToString();
-            // MessageBox.Show(
-            //    sb.ToString(),
-            //    "+/9+785858585858584517069*9+9*8/9*08/*-06+85587+879+Computer Information",
-            //    MessageBoxButtons.OK,
-            //    MessageBoxIcon.Information);
+
+            UpdateRealTimeMetrics();
         }
 
+        // Evento Tick del temporizador en inglés
+        private void TmrRealTime_Tick(object sender, EventArgs e)
+        {
+            UpdateRealTimeMetrics();
+        }
+
+        // Método encargado del refresco, ahora totalmente en inglés
+        private void UpdateRealTimeMetrics()
+        {
+            // En lugar de ir a buscar a WMI, calculamos la diferencia usando el reloj interno
+            TimeSpan timePassedSinceLoad = DateTime.Now - _loadTime;
+            TimeSpan currentUptime = _initialUptime + timePassedSinceLoad;
+
+            // Muestra el tiempo actualizado de inmediato
+            //lbSumaryOnTime.Text = $"{currentUptime.Days}d {currentUptime.Hours:00}h {currentUptime.Minutes:00}m {currentUptime.Seconds:00}s";
+        }
+
+        #region UI Events
         private void pbMinimize_MouseEnter(object sender, EventArgs e)
         {
             pbMinimize.Image = Resources.window_minimize_hover;
@@ -132,6 +143,12 @@ namespace presentation
 
         private void pnlMain_Paint(object sender, PaintEventArgs e)
         {
+        }
+        #endregion
+
+        private void pnlComputerSummary_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

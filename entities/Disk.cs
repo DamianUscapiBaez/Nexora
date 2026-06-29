@@ -8,5 +8,6 @@ namespace entities
     {
         public string CapacityGB { get; set; }
         public string InterfaceType { get; set; }
+        public string MediaType { get; set; }
     }
 }

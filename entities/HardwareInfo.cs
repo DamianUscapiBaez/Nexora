@@ -1,46 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using entities;
 
-namespace entities
+namespace Entities
 {
     public class HardwareInfo
     {
         // CPU
-        public string Cpu { get; set; }
+        public string CpuName { get; set; }
         public int CpuCores { get; set; }
         public int CpuThreads { get; set; }
-        public double CpuUsage { get; set; }
-        public double CpuTemperature { get; set; }
+        public int CpuBaseSpeed { get; set; }
+        public string CpuMaximumSpeed { get; set; } 
 
-        //Ram
-        public double Ram { get; set; }
-        public double RamUsedGB { get; set; }
-        public double RamAvailableGB { get; set; }
-        public double RamUsagePercent { get; set; }
+        // RAM
+        public double TotalRam { get; set; }
+        public string RamType { get; set; }
+        public int RamSpeedMhz { get; set; }
+        public int RamUsedSlots { get; set; }
+        public string RamTotalSlots { get; set; }
 
         // GPU
-        public string Gpu { get; set; }
-        public double GpuUsage { get; set; }
-        public double GpuTemperature { get; set; }
-        public double VramUedsGB { get; set; }
+        public string GpuName { get; set; }
         public double VramTotalGB { get; set; }
+        public string Manufacturer { get; set; } 
 
         // Disk
-        public string TotalGBDisk { get; set; }
-        public string UsedGBDisk { get; set; }
-        public string FreeGBDisk { get; set; }
         public List<Disk> Disks { get; set; }
 
         // Monitors
-        public List<Monitor> Monitors { get; set; }
+        public List<entities.Monitor> Monitors { get; set; }
 
-        // Red
+        // Network
         public string NetworkAdapter { get; set; }
-        public double DownloadMbps { get; set; }
-        public double UploadMbps { get; set; }
+        public string MacAddress { get; set; } 
+        public string IpAddress { get; set; }  
+        public string NetworkStatus { get; set; } 
 
-        // Tiempo activo
+        // Uptime
         public TimeSpan Uptime { get; set; }
     }
 }
