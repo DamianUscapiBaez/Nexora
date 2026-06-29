@@ -11,12 +11,14 @@ namespace business
         {
             var computer = new Computer
             {
+                HostName = Environment.MachineName,
                 SerialNumber = GetSerialNumber(),
                 Manufacturer = GetManufacturer(),
                 Model = GetModel(),
                 ComputerType = GetDeviceType(),
                 Hardware = HardwareInfoService.GetHardwareInfo(),
-                OperatingSystem = SystemInfoService.GetOperatingSystemInfo()
+                SystemInfo = SystemInfoService.GetOperatingSystemInfo(),
+                CurrentUser = Environment.UserName
             };
 
             return computer;

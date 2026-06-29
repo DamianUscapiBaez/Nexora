@@ -10,11 +10,11 @@ namespace business
         {
             var osInfo = new SystemInfo
             {
-                HostName = Environment.MachineName,
                 OperatingSystem = GetOperatingSystem(),
                 OSVersion = GetOSVersion(),
                 OSBuild = GetOSBuild(),
                 OSArchitecture = GetOSArchitecture(),
+                InstalledDate = GetInstallDate()
             };
 
             return osInfo;
@@ -56,14 +56,24 @@ namespace business
         {
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion"))
             {
-                if (key != null)
+                // Solo necesitamos "CurrentBuild", el UBR no es necesario
+                return key?.GetValue("CurrentBuild")?.ToString() ?? "Unknown";
+            }
+        }
+
+        private static DateOnly GetInstallDate()
+        {
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion"))
+            {
+                object installDate = key?.GetValue("InstallDate");
+                if (installDate != null)
                 {
-                    string build = key.GetValue("CurrentBuild")?.ToString() ?? "0";
-                    string ubr = key.GetValue("UBR")?.ToString() ?? "0";
-                    return $"{build}.{ubr}";
+                    // Convertimos los segundos a DateTime y luego a DateOnly
+                    DateTime dt = new DateTime(1970, 1, 1).AddSeconds(Convert.ToDouble(installDate));
+                    return DateOnly.FromDateTime(dt);
                 }
             }
-            return "Unknown";
+            return default; // Devuelve 01/01/0001 si no se encuentra
         }
     }
 }

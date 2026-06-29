@@ -21,49 +21,21 @@ namespace Business
             // 1. Obtenemos primero la lista física mapeada
             var diskList = GetDisks();
 
-            double totalCapacityGb = 0;
-            double totalFreeGb = 0;
-
-            // 2. Sumamos la capacidad real directo de los discos físicos
-            using (var searcher = new ManagementObjectSearcher("SELECT Size FROM Win32_DiskDrive"))
-            {
-                foreach (ManagementObject obj in searcher.Get())
-                {
-                    if (obj["Size"] != null)
-                    {
-                        // Conversión exacta binaria a Gigabytes
-                        totalCapacityGb += Convert.ToDouble(obj["Size"]) / 1024 / 1024 / 1024;
-                    }
-                }
-            }
-
-            // Opcional/Mejora: Calcular el espacio libre real recorriendo las unidades lógicas
-            foreach (var drive in DriveInfo.GetDrives())
-            {
-                if (drive.IsReady && drive.DriveType == DriveType.Fixed)
-                {
-                    totalFreeGb += drive.TotalFreeSpace / 1024.0 / 1024.0 / 1024.0;
-                }
-            }
-
-            double totalUsedGb = totalCapacityGb - totalFreeGb;
-            if (totalUsedGb < 0) totalUsedGb = 0; // Control por si acaso
-
             return new HardwareInfo
             {
                 // CPU - Mapeado a las propiedades de tu nueva entidad
                 CpuName = GetCpu(),
                 CpuCores = GetCpuCoresAndThreads().Cores,
                 CpuThreads = GetCpuCoresAndThreads().Threads,
-                CpuBaseSpeed = GetCpuBaseSpeed(),
-                CpuMaximumSpeed = "Auto", // O puedes mapearlo con la lógica que requieras
+                CpuBaseSpeed = GetCpuSpeed("CurrentClockSpeed"), 
+                CpuMaximumSpeed = GetCpuSpeed("MaxClockSpeed"),
 
                 // RAM
                 TotalRam = ramInfo.TotalRam,
                 RamType = ramInfo.RamType,
                 RamSpeedMhz = ramInfo.RamSpeedMhz,
-                RamUsedSlots = GetRamUsedSlots(),
-                RamTotalSlots = "Unknown", // Puedes calcularlo si Win32_PhysicalMemoryArray está disponible
+                RamUsedSlots = GetRamSlotsInfo().used,
+                RamTotalSlots = GetRamSlotsInfo().total,
 
                 // GPU
                 GpuName = GetGpu(),
@@ -86,17 +58,20 @@ namespace Business
                 Uptime = GetUptimeRealTime()
             };
         }
-
+        // CPU
         private static string GetCpu()
         {
             using (var search = new ManagementObjectSearcher("SELECT Name FROM Win32_Processor"))
             {
                 foreach (ManagementObject obj in search.Get())
                 {
-                    return obj["Name"]?.ToString() ?? "Unknown";
+                    string name = obj["Name"]?.ToString().Trim() ?? "Unknown";
+
+                    // Elimina la frecuencia (@...), etiquetas (R)/(TM) y palabras redundantes como "CPU"
+                    return System.Text.RegularExpressions.Regex.Replace(name, @"\s?@.*|\(R\)|\(TM\)|CPU", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase).Trim();
                 }
-                return "Unknown";
             }
+            return "Unknown";
         }
 
         private static (int Cores, int Threads) GetCpuCoresAndThreads()
@@ -114,18 +89,22 @@ namespace Business
             return (cores, threads);
         }
 
-        private static int GetCpuBaseSpeed()
+        private static double GetCpuSpeed(string propertyName)
         {
-            using (var search = new ManagementObjectSearcher("SELECT MaxClockSpeed FROM Win32_Processor"))
+            // propertyName puede ser "MaxClockSpeed" o "CurrentClockSpeed"
+            using (var search = new ManagementObjectSearcher($"SELECT {propertyName} FROM Win32_Processor"))
             {
                 foreach (ManagementObject obj in search.Get())
                 {
-                    return obj["MaxClockSpeed"] != null ? Convert.ToInt32(obj["MaxClockSpeed"]) : 0;
+                    if (obj[propertyName] != null)
+                    {
+                        return Math.Round(Convert.ToDouble(obj[propertyName]) / 1000.0, 2);
+                    }
                 }
             }
-            return 0;
+            return 0.0;
         }
-
+        // RAM
         private static HardwareInfo GetRamInfo()
         {
             var ram = new HardwareInfo();
@@ -153,14 +132,32 @@ namespace Business
             return ram;
         }
 
-        private static int GetRamUsedSlots()
+        private static (int used, int total) GetRamSlotsInfo()
         {
+            int usedSlots = 0;
+            int totalSlots = 0;
+
+            // 1. Obtener los slots usados (módulos conectados)
             using (var searcher = new ManagementObjectSearcher("SELECT DeviceLocator FROM Win32_PhysicalMemory"))
             {
-                return searcher.Get().Count;
+                usedSlots = searcher.Get().Count;
             }
-        }
 
+            // 2. Obtener el total de slots de la placa base
+            using (var searcher = new ManagementObjectSearcher("SELECT MemoryDevices FROM Win32_PhysicalMemoryArray"))
+            {
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    if (obj["MemoryDevices"] != null)
+                    {
+                        totalSlots += Convert.ToInt32(obj["MemoryDevices"]);
+                    }
+                }
+            }
+
+            return (usedSlots, totalSlots);
+        }
+        // GPU
         private static string GetGpu()
         {
             using (var searcher = new ManagementObjectSearcher("SELECT Name FROM Win32_VideoController"))

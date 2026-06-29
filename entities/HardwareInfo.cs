@@ -8,15 +8,15 @@ namespace Entities
         public string CpuName { get; set; }
         public int CpuCores { get; set; }
         public int CpuThreads { get; set; }
-        public int CpuBaseSpeed { get; set; }
-        public string CpuMaximumSpeed { get; set; } 
+        public double CpuBaseSpeed { get; set; }
+        public double CpuMaximumSpeed { get; set; } 
 
         // RAM
         public double TotalRam { get; set; }
         public string RamType { get; set; }
         public int RamSpeedMhz { get; set; }
         public int RamUsedSlots { get; set; }
-        public string RamTotalSlots { get; set; }
+        public int RamTotalSlots { get; set; }
 
         // GPU
         public string GpuName { get; set; }

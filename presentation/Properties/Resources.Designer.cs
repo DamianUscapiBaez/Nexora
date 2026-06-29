@@ -143,6 +143,16 @@ namespace presentation.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icon_system {
+            get {
+                object obj = ResourceManager.GetObject("icon_system", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_timer {
             get {
                 object obj = ResourceManager.GetObject("icon_timer", resourceCulture);

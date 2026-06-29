@@ -22,14 +22,17 @@ namespace presentation
             InitializeComponent();
 
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
-            pnlComputerSummary.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pnlComputerSummary.Width, pnlComputerSummary.Height, 20, 20));
-            //pnlComputerInformation.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pnlComputerInformation.Width, pnlComputerInformation.Height, 20, 20));
         }
 
         private void frmNexoraAgent_Load(object sender, EventArgs e)
         {
+            var info = ComputerInfoService.GetComputerInfo();
+            _initialUptime = info.Hardware.Uptime;
+            _loadTime = DateTime.Now;
+
             LoadInformation();
-            tmrRealTime.Start(); // Arranca el temporizador
+            tmrRealTime.Start();
+            ShowFullSystemReport();
         }
 
         private void LoadInformation()
@@ -41,49 +44,41 @@ namespace presentation
 
             var hardwareObj = _computerInfoCache.Hardware;
 
-            if (_computerInfoCache.OperatingSystem != null)
+            // Card equipo
+            if (_computerInfoCache != null)
             {
-                lbSumaryHostname.Text = _computerInfoCache.OperatingSystem.HostName;
+                lbSumaryHostname.Text = _computerInfoCache.HostName;
                 lbSumaryTypeDevice.Text = _computerInfoCache.ComputerType.ToString();
-                lbSumaryModelAndBrand.Text = _computerInfoCache.Model;
+                lbSumaryModelAndBrand.Text = $"{_computerInfoCache.Manufacturer} / {_computerInfoCache.Model}";
                 lbSumaryNumberSerie.Text = _computerInfoCache.SerialNumber;
-                //lbSumarySystem.Text = _computerInfoCache.OperatingSystem.OperatingSystem;
+                lbSumaryCurrentUser.Text = _computerInfoCache.CurrentUser;
+                UpdateRealTimeMetrics();
             }
-
-            lbSumaryModelAndBrand.Text = $"{_computerInfoCache.Manufacturer} {_computerInfoCache.Model}";
-
-            if (hardwareObj != null)
+            // Card Operating System
+            if (_computerInfoCache.SystemInfo != null)
             {
-                // Mapeos corregidos usando las nuevas propiedades en inglés de HardwareInfo
-                //lbSumaryMicroprocessor.Text = hardwareObj.CpuName; // .Cpu -> .CpuName
-                //lbSumaryGpu.Text = hardwareObj.GpuName; // .Gpu -> .GpuName
-                //lbSumaryRam.Text = $"{hardwareObj.TotalRam} GB {hardwareObj.RamType} {hardwareObj.RamSpeedMhz} Mhz";
-
-                // === LOGIC DETECCIÓN Y RESUMEN DE DISCOS ===
-                // Nota: Asegúrate de que tu modelo 'ComputerInfo' tenga asignada la propiedad correcta de capacidad si usas TotalGBDisk externamente,
-                // de lo contrario, si calculas por la lista de discos, puedes dejar el formateador.
-                //string formattedTotalSize = HardwareInfoService.FormatStorageSize(hardwareObj.to);
-
-                var uniqueMediaTypes = new List<string>();
-                if (hardwareObj.Disks != null)
-                {
-                    foreach (var disk in hardwareObj.Disks)
-                    {
-                        if (!uniqueMediaTypes.Contains(disk.MediaType))
-                        {
-                            uniqueMediaTypes.Add(disk.MediaType);
-                        }
-                    }
-                }
-
-                string diskTypesCombination = string.Join(" + ", uniqueMediaTypes);
-                //lbSumaryDisk.Text = $"{formattedTotalSize} ({diskTypesCombination})";
-
-                // GUARDAR EL TIEMPO INICIAL EN MEMORIA (Evita llamar a WMI en el Timer)
-                _initialUptime = hardwareObj.Uptime;
-                _loadTime = DateTime.Now;
+                lbSumaryEdition.Text = _computerInfoCache.SystemInfo.OperatingSystem;
+                lbSumaryVersion.Text = _computerInfoCache.SystemInfo.OSVersion;
+                lbSumaryCompilation.Text = _computerInfoCache.SystemInfo.OSBuild;
+                lbSumaryArchitecture.Text = _computerInfoCache.SystemInfo.OSArchitecture;
+                lbSumaryInstallationDate.Text = _computerInfoCache.SystemInfo.InstalledDate.ToString();
             }
+            if (_computerInfoCache.Hardware != null)
+            {
+                // Card Micro Processor
+                lbSumaryNameMicroprocessor.Text = _computerInfoCache.Hardware.CpuName;
+                lbSumaryCores.Text = _computerInfoCache.Hardware.CpuCores.ToString();
+                lbSumaryThreads.Text = _computerInfoCache.Hardware.CpuThreads.ToString();
+                lbSumaryBaseSpeed.Text = $"{_computerInfoCache.Hardware.CpuBaseSpeed.ToString()} GHz";
+                lbSumaryMaximumSeed.Text = $"{_computerInfoCache.Hardware.CpuMaximumSpeed.ToString()} GHz";
 
+                // Card Memory RAM
+                lbSumaryCapacity.Text = $"{_computerInfoCache.Hardware.TotalRam.ToString()} GB";
+                lbSumaryRamType.Text = _computerInfoCache.Hardware.RamType;
+                lbSumaryRamSeed.Text = $"{_computerInfoCache.Hardware.RamSpeedMhz.ToString()} MHz";
+                lbSumaryRamSlots.Text = $"{_computerInfoCache.Hardware.RamUsedSlots.ToString()} de {_computerInfoCache.Hardware.RamTotalSlots.ToString()}";
+
+            }
             switch (_computerInfoCache.ComputerType)
             {
                 case ComputerType.Desktop:
@@ -100,7 +95,7 @@ namespace presentation
                     break;
             }
 
-            UpdateRealTimeMetrics();
+           
         }
 
         // Evento Tick del temporizador en inglés
@@ -112,12 +107,10 @@ namespace presentation
         // Método encargado del refresco, ahora totalmente en inglés
         private void UpdateRealTimeMetrics()
         {
-            // En lugar de ir a buscar a WMI, calculamos la diferencia usando el reloj interno
             TimeSpan timePassedSinceLoad = DateTime.Now - _loadTime;
-            TimeSpan currentUptime = _initialUptime + timePassedSinceLoad;
+            TimeSpan totalUptime = _initialUptime + timePassedSinceLoad;
 
-            // Muestra el tiempo actualizado de inmediato
-            //lbSumaryOnTime.Text = $"{currentUptime.Days}d {currentUptime.Hours:00}h {currentUptime.Minutes:00}m {currentUptime.Seconds:00}s";
+            lbSumaryOnTime.Text = $"{totalUptime.Days}d {totalUptime.Hours:00}h {totalUptime.Minutes:00}m {totalUptime.Seconds:00}s";
         }
 
         #region UI Events
@@ -149,6 +142,52 @@ namespace presentation
         private void pnlComputerSummary_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void ShowFullSystemReport()
+        {
+            var info = ComputerInfoService.GetComputerInfo();
+            if (info == null) return;
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            sb.AppendLine("=== SYSTEM REPORT ===");
+            sb.AppendLine($"Hostname: {info.HostName}");
+            sb.AppendLine($"User: {info.CurrentUser}");
+            sb.AppendLine($"Type: {info.ComputerType}");
+            sb.AppendLine($"Manufacturer: {info.Manufacturer}");
+            sb.AppendLine($"Model: {info.Model}");
+            sb.AppendLine($"Serial: {info.SerialNumber}");
+
+            sb.AppendLine("\n--- OPERATING SYSTEM ---");
+            sb.AppendLine($"OS: {info.SystemInfo.OperatingSystem}");
+            sb.AppendLine($"Version: {info.SystemInfo.OSVersion}");
+            sb.AppendLine($"Build: {info.SystemInfo.OSBuild}");
+            sb.AppendLine($"Arch: {info.SystemInfo.OSArchitecture}");
+            sb.AppendLine($"Install Date: {info.SystemInfo.InstalledDate}");
+
+            sb.AppendLine("\n--- HARDWARE ---");
+            sb.AppendLine($"CPU: {info.Hardware.CpuName}");
+            sb.AppendLine($"Cores/Threads: {info.Hardware.CpuCores}/{info.Hardware.CpuThreads}");
+            sb.AppendLine($"Speed: {info.Hardware.CpuBaseSpeed} GHz (Max: {info.Hardware.CpuMaximumSpeed} GHz)");
+            sb.AppendLine($"RAM: {info.Hardware.TotalRam} GB {info.Hardware.RamType} @ {info.Hardware.RamSpeedMhz} MHz");
+            sb.AppendLine($"Slots: {info.Hardware.RamUsedSlots}/{info.Hardware.RamTotalSlots}");
+            sb.AppendLine($"GPU: {info.Hardware.GpuName} ({info.Hardware.VramTotalGB} GB VRAM)");
+
+            sb.AppendLine("\n--- DISKS ---");
+            foreach (var disk in info.Hardware.Disks)
+            {
+                sb.AppendLine($"- {disk.Model} [{disk.MediaType}] - {disk.CapacityGB}");
+            }
+
+            sb.AppendLine("\n--- MONITORS ---");
+            foreach (var mon in info.Hardware.Monitors)
+            {
+                sb.AppendLine($"- {mon.Manufacturer} {mon.Model}");
+            }
+
+            // Mostrar en MessageBox
+            MessageBox.Show(sb.ToString(), "Nexora Agent - Full System Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
