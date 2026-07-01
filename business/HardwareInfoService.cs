@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Management;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
@@ -49,10 +51,7 @@ namespace Business
                 Monitors = GetMonitors(),
 
                 // Network (Campos agregados en tu entidad que faltaban mapear aquí)
-                NetworkAdapter = "Unknown",
-                MacAddress = "Unknown",
-                IpAddress = "Unknown",
-                NetworkStatus = "Unknown",
+                NetworkAdapters = GetNetworkAdapters(),
 
                 // Uptime
                 Uptime = GetUptimeRealTime()
@@ -253,36 +252,6 @@ namespace Business
             return disks;
         }
 
-        private static List<Disk> GetDisksFallback()
-        {
-            var disks = new List<Disk>();
-            using (var search = new ManagementObjectSearcher("SELECT Model, Size, InterfaceType FROM Win32_DiskDrive"))
-            {
-                foreach (ManagementObject obj in search.Get())
-                {
-                    string model = obj["Model"]?.ToString() ?? "Unknown";
-                    long sizeBytes = obj["Size"] != null && long.TryParse(obj["Size"].ToString(), out long b) ? b : 0;
-                    double sizeGb = sizeBytes / (1024.0 * 1024.0 * 1024.0);
-
-                    string mediaType = "HDD";
-                    string interfaceType = obj["InterfaceType"]?.ToString() ?? "";
-
-                    if (interfaceType.ToUpper().Contains("SCSI") || model.ToUpper().Contains("NVME"))
-                        mediaType = "NVMe";
-                    else if (model.ToUpper().Contains("SSD"))
-                        mediaType = "SSD";
-
-                    disks.Add(new Disk
-                    {
-                        Model = model,
-                        CapacityGB = FormatStorageSize(sizeGb),
-                        MediaType = mediaType
-                    });
-                }
-            }
-            return disks;
-        }
-
         public static string FormatStorageSize(double gigabytes)
         {
             if (gigabytes >= 1024)
@@ -295,11 +264,14 @@ namespace Business
         private static List<entities.Monitor> GetMonitors()
         {
             var monitors = new List<entities.Monitor>();
-            var scope = new ManagementScope(@"\\.\root\wmi");
 
-            using (var searcher = new ManagementObjectSearcher(scope, new ObjectQuery("SELECT * FROM WmiMonitorID")))
+            try
             {
-                try
+                // Información del EDID
+                var scope = new ManagementScope(@"\\.\root\wmi");
+
+                using (var searcher = new ManagementObjectSearcher(scope,
+                    new ObjectQuery("SELECT * FROM WmiMonitorID")))
                 {
                     foreach (ManagementObject obj in searcher.Get())
                     {
@@ -307,18 +279,105 @@ namespace Business
                         {
                             Manufacturer = DecodeWmiString(obj["ManufacturerName"] as ushort[]),
                             Model = DecodeWmiString(obj["UserFriendlyName"] as ushort[]),
-                            SerialNumber = DecodeWmiString(obj["SerialNumberID"] as ushort[])
+                            SerialNumber = DecodeWmiString(obj["SerialNumberID"] as ushort[]),
+
+                            // 0 = Externo
+                            // 1 = Interno
+                            IsInternal = obj["Active"] != null &&
+                                         Convert.ToBoolean(obj["Active"])
                         });
                     }
                 }
-                catch (ManagementException)
+
+                // Resolución y frecuencia
+                using (var searcher = new ManagementObjectSearcher(
+                    "SELECT * FROM Win32_VideoController"))
                 {
+                    var video = searcher.Get().Cast<ManagementObject>().FirstOrDefault();
+
+                    if (video != null)
+                    {
+                        string resolution =
+                            $"{video["CurrentHorizontalResolution"]} x {video["CurrentVerticalResolution"]}";
+
+                        int refresh =
+                            Convert.ToInt32(video["CurrentRefreshRate"]);
+
+                        foreach (var monitor in monitors)
+                        {
+                            monitor.Resolution = resolution;
+                            monitor.RefreshRate = refresh;
+                            monitor.IsConnected = true;
+                        }
+                    }
                 }
+            }
+            catch
+            {
             }
 
             return monitors;
         }
+        private static List<NetworkAdapter> GetNetworkAdapters()
+        {
+            List<NetworkAdapter> adapters = new List<NetworkAdapter>();
 
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                // Solo Ethernet y Wi-Fi
+                if (nic.NetworkInterfaceType != NetworkInterfaceType.Ethernet &&
+                    nic.NetworkInterfaceType != NetworkInterfaceType.Wireless80211)
+                    continue;
+
+                var ip = nic.GetIPProperties()
+                            .UnicastAddresses
+                            .FirstOrDefault(a => a.Address.AddressFamily == AddressFamily.InterNetwork)?
+                            .Address.ToString() ?? "Sin IP";
+
+                adapters.Add(new NetworkAdapter
+                {
+                    NameAdapter = nic.Name,
+                    Manufacturer = GetManufacturer(nic.Name),
+                    MacAddress = string.Join("-",
+                        nic.GetPhysicalAddress()
+                           .GetAddressBytes()
+                           .Select(b => b.ToString("X2"))),
+                    IpAddress = ip,
+                    NetworkStatus = nic.OperationalStatus == OperationalStatus.Up
+                        ? "Conectado"
+                        : "Desconectado"
+                });
+            }
+
+            return adapters;
+        }
+
+        private static string GetManufacturer(string adapterName)
+        {
+            try
+            {
+                using (ManagementObjectSearcher searcher =
+                    new ManagementObjectSearcher(
+                    "SELECT Name, Manufacturer FROM Win32_NetworkAdapter"))
+                {
+                    foreach (ManagementObject obj in searcher.Get())
+                    {
+                        string name = obj["Name"]?.ToString();
+
+                        if (!string.IsNullOrEmpty(name) &&
+                            name.Contains(adapterName))
+                        {
+                            return obj["Manufacturer"]?.ToString() ?? "";
+                        }
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            return "";
+        }
         private static string DecodeWmiString(ushort[] data)
         {
             if (data == null) return "Unknown";

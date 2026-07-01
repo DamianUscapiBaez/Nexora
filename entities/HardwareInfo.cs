@@ -30,10 +30,7 @@ namespace Entities
         public List<entities.Monitor> Monitors { get; set; }
 
         // Network
-        public string NetworkAdapter { get; set; }
-        public string MacAddress { get; set; } 
-        public string IpAddress { get; set; }  
-        public string NetworkStatus { get; set; } 
+        public List<NetworkAdapter> NetworkAdapters { get; set; }
 
         // Uptime
         public TimeSpan Uptime { get; set; }

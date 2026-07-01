@@ -454,10 +454,12 @@
             // flowMonitors
             // 
             flowMonitors.AutoScroll = true;
+            flowMonitors.FlowDirection = FlowDirection.TopDown;
             flowMonitors.Location = new Point(17, 56);
             flowMonitors.Name = "flowMonitors";
             flowMonitors.Size = new Size(283, 107);
             flowMonitors.TabIndex = 24;
+            flowMonitors.WrapContents = false;
             // 
             // lbCardMonitor
             // 
@@ -498,12 +500,13 @@
             // flowDisks
             // 
             flowDisks.AutoScroll = true;
+            flowDisks.BackgroundImageLayout = ImageLayout.None;
             flowDisks.FlowDirection = FlowDirection.TopDown;
             flowDisks.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            flowDisks.Location = new Point(14, 43);
+            flowDisks.Location = new Point(0, 56);
             flowDisks.Margin = new Padding(0);
             flowDisks.Name = "flowDisks";
-            flowDisks.Size = new Size(292, 123);
+            flowDisks.Size = new Size(320, 110);
             flowDisks.TabIndex = 12;
             flowDisks.WrapContents = false;
             // 

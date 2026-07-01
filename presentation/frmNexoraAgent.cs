@@ -170,6 +170,195 @@ namespace presentation
                     flowDisks.Controls.Add(panel);
                 }
 
+                // Card Monitors
+                flowMonitors.Controls.Clear();
+
+                foreach (var monitor in _computerInfoCache.Hardware.Monitors)
+                {
+                    System.Windows.Forms.Panel panel = new System.Windows.Forms.Panel
+                    {
+                        Width = flowMonitors.ClientSize.Width - 20,
+                        Height = 75,
+                        BorderStyle = BorderStyle.FixedSingle,
+                        Margin = new Padding(3),
+                        BackColor = Color.White
+                    };
+
+                    // Imagen
+                    PictureBox picture = new PictureBox
+                    {
+                        Size = new Size(32, 32),
+                        Location = new Point(10, 20),
+                        SizeMode = PictureBoxSizeMode.Zoom,
+                        Image = Properties.Resources.icon_monitor
+                    };
+
+                    // Modelo
+                    Label lblModel = new Label
+                    {
+                        AutoSize = true,
+                        Location = new Point(50, 8),
+                        Font = new Font("Segoe UI", 8.5F, FontStyle.Bold),
+                        Text = string.IsNullOrWhiteSpace(monitor.Model)
+                            ? "Monitor desconocido"
+                            : monitor.Model
+                    };
+
+                    // Fabricante
+                    Label lblManufacturer = new Label
+                    {
+                        AutoSize = true,
+                        Location = new Point(50, 26),
+                        Font = new Font("Segoe UI", 8F),
+                        ForeColor = Color.DimGray,
+                        Text = monitor.Manufacturer
+                    };
+
+                    // Resolución y frecuencia
+                    Label lblResolution = new Label
+                    {
+                        AutoSize = true,
+                        Location = new Point(150, 26),
+                        Font = new Font("Segoe UI", 8F),
+                        ForeColor = Color.DimGray,
+                        Text = $"{monitor.Resolution} • {monitor.RefreshRate} Hz"
+                    };
+
+                    // Serie
+                    Label lblSerial = new Label
+                    {
+                        AutoSize = true,
+                        Location = new Point(50, 45),
+                        Font = new Font("Segoe UI", 8F),
+                        ForeColor = Color.Gray,
+                        Text = $"S/N: {monitor.SerialNumber}"
+                    };
+
+                    // Estado (Interno/Externo)
+                    Label lblType = new Label
+                    {
+                        AutoSize = false,
+                        Size = new Size(65, 18),
+                        Location = new Point(panel.Width - 75, 8),
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        ForeColor = Color.White,
+                        Font = new Font("Segoe UI", 7.5F, FontStyle.Bold),
+                        Text = monitor.IsInternal ? "Interno" : "Externo"
+                    };
+
+                    lblType.BackColor = monitor.IsInternal
+                        ? Color.FromArgb(34, 197, 94)   // Verde
+                        : Color.FromArgb(59, 130, 246); // Azul
+
+                    panel.Controls.Add(picture);
+                    panel.Controls.Add(lblModel);
+                    panel.Controls.Add(lblManufacturer);
+                    panel.Controls.Add(lblResolution);
+                    panel.Controls.Add(lblSerial);
+                    panel.Controls.Add(lblType);
+
+                    flowMonitors.Controls.Add(panel);
+                }
+
+                // Card Network
+                flowReds.Controls.Clear();
+
+                foreach (var adapter in _computerInfoCache.Hardware.NetworkAdapters)
+                {
+                    System.Windows.Forms.Panel panel = new System.Windows.Forms.Panel
+                    {
+                        Width = flowReds.ClientSize.Width - 20,
+                        Height = 75,
+                        BorderStyle = BorderStyle.FixedSingle,
+                        Margin = new Padding(3),
+                        BackColor = Color.White
+                    };
+
+                    // Imagen
+                    PictureBox picture = new PictureBox
+                    {
+                        Size = new Size(32, 32),
+                        Location = new Point(10, 20),
+                        SizeMode = PictureBoxSizeMode.Zoom,
+                        //Image = Properties.Resources.icon_network
+                    };
+
+                    // Nombre del adaptador
+                    Label lblAdapter = new Label
+                    {
+                        AutoSize = true,
+                        Location = new Point(50, 8),
+                        Font = new Font("Segoe UI", 8.5F, FontStyle.Bold),
+                        Text = adapter.NameAdapter
+                    };
+
+                    // Fabricante
+                    Label lblManufacturer = new Label
+                    {
+                        AutoSize = true,
+                        Location = new Point(50, 26),
+                        Font = new Font("Segoe UI", 8F),
+                        ForeColor = Color.DimGray,
+                        Text = adapter.Manufacturer
+                    };
+
+                    // MAC
+                    Label lblMac = new Label
+                    {
+                        AutoSize = true,
+                        Location = new Point(170, 26),
+                        Font = new Font("Segoe UI", 8F),
+                        ForeColor = Color.DimGray,
+                        Text = $"MAC: {adapter.MacAddress}"
+                    };
+
+                    // IP
+                    Label lblIp = new Label
+                    {
+                        AutoSize = true,
+                        Location = new Point(50, 45),
+                        Font = new Font("Segoe UI", 8F),
+                        ForeColor = Color.Gray,
+                        Text = $"IP: {adapter.IpAddress}"
+                    };
+
+                    // Estado
+                    Label lblStatus = new Label
+                    {
+                        AutoSize = false,
+                        Size = new Size(90, 20),
+                        Location = new Point(panel.Width - 100, 8),
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        ForeColor = Color.White,
+                        Font = new Font("Segoe UI", 7.5F, FontStyle.Bold),
+                        Text = adapter.NetworkStatus
+                    };
+
+                    switch (adapter.NetworkStatus)
+                    {
+                        case "Conectado":
+                            lblStatus.BackColor = Color.FromArgb(34, 197, 94); // Verde
+                            break;
+
+                        case "Desconectado":
+                            lblStatus.BackColor = Color.FromArgb(220, 53, 69); // Rojo
+                            break;
+
+                        default:
+                            lblStatus.BackColor = Color.FromArgb(107, 114, 128); // Gris
+                            break;
+                    }
+
+                    panel.Controls.Add(picture);
+                    panel.Controls.Add(lblAdapter);
+                    panel.Controls.Add(lblManufacturer);
+                    panel.Controls.Add(lblMac);
+                    panel.Controls.Add(lblIp);
+                    panel.Controls.Add(lblStatus);
+
+                    flowReds.Controls.Add(panel);
+                }
+
                 switch (_computerInfoCache.ComputerType)
                 {
                     case ComputerType.Desktop:
