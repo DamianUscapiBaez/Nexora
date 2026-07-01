@@ -113,6 +113,16 @@ namespace presentation.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icon_ethernet {
+            get {
+                object obj = ResourceManager.GetObject("icon_ethernet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_gpu {
             get {
                 object obj = ResourceManager.GetObject("icon_gpu", resourceCulture);
@@ -133,9 +143,29 @@ namespace presentation.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icon_monitor {
+            get {
+                object obj = ResourceManager.GetObject("icon_monitor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_ram {
             get {
                 object obj = ResourceManager.GetObject("icon_ram", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_storage {
+            get {
+                object obj = ResourceManager.GetObject("icon-storage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

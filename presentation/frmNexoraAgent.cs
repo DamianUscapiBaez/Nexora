@@ -3,6 +3,7 @@ using Business;
 using entities;
 using Microsoft.VisualBasic.Devices;
 using presentation.Properties;
+using ReaLTaiizor.Controls;
 using System.CodeDom.Compiler;
 using System.Runtime.InteropServices;
 
@@ -32,7 +33,7 @@ namespace presentation
 
             LoadInformation();
             tmrRealTime.Start();
-            ShowFullSystemReport();
+            //ShowFullSystemReport();
         }
 
         private void LoadInformation()
@@ -78,24 +79,114 @@ namespace presentation
                 lbSumaryRamSeed.Text = $"{_computerInfoCache.Hardware.RamSpeedMhz.ToString()} MHz";
                 lbSumaryRamSlots.Text = $"{_computerInfoCache.Hardware.RamUsedSlots.ToString()} de {_computerInfoCache.Hardware.RamTotalSlots.ToString()}";
 
-            }
-            switch (_computerInfoCache.ComputerType)
-            {
-                case ComputerType.Desktop:
-                    pbDeviceType.Image = Resources.device_desktop;
-                    break;
-                case ComputerType.AllInOne:
-                    pbDeviceType.Image = Resources.device_AllInOne;
-                    break;
-                case ComputerType.Laptop:
-                    pbDeviceType.Image = Resources.device_laptop;
-                    break;
-                default:
-                    pbDeviceType.Image = Resources.device_desktop;
-                    break;
-            }
+                //Card Gpu
+                lbSumaryGpuName.Text = _computerInfoCache.Hardware.GpuName;
+                lbSumaryMemory.Text = _computerInfoCache.Hardware.VramTotalGB.ToString();
+                lbSumaryManufacter.Text = _computerInfoCache.Hardware.Manufacturer;
 
-           
+                // Card Disk
+                flowDisks.Controls.Clear();
+
+                foreach (var disk in _computerInfoCache.Hardware.Disks)
+                {
+                    System.Windows.Forms.Panel panel = new System.Windows.Forms.Panel
+                    {
+                        Width = flowDisks.ClientSize.Width - 20,
+                        Height = 50,                     
+                        BorderStyle = BorderStyle.FixedSingle,
+                        Margin = new Padding(3)
+                    };
+
+                    // Imagen
+                    PictureBox picture = new PictureBox
+                    {
+                        Size = new Size(32, 32),         // Antes 48x48
+                        Location = new Point(10, 14),
+                        SizeMode = PictureBoxSizeMode.Zoom,
+                        Image = Properties.Resources.icon_storage
+                    };
+
+                    // Modelo
+                    Label lbl = new Label
+                    {
+                        AutoSize = true,
+                        Location = new Point(50, 8),
+                        Font = new Font("Segoe UI", 7F, FontStyle.Regular),
+                        Text = disk.Model
+                    };
+
+                    // Capacidad
+                    Label lblCapacity = new Label
+                    {
+                        AutoSize = true,
+                        Location = new Point(50, 26),
+                        Font = new Font("Segoe UI", 8F),
+                        ForeColor = Color.DimGray,
+                        Text = disk.CapacityGB
+                    };
+
+                    // Serie
+                    Label lblSerial = new Label
+                    {
+                        AutoSize = true,
+                        Location = new Point(120, 26),
+                        Font = new Font("Segoe UI", 8F),
+                        ForeColor = Color.DimGray,
+                        Text = $"S/N: {disk.SerialNumber}"
+                    };
+
+                    // Tipo (Badge simulado)
+                    Label lblType = new Label
+                    {
+                        Text = disk.MediaType,
+                        Size = new Size(40, 15),          // Más pequeño
+                        Location = new Point(panel.Width - 60, 8),
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        ForeColor = Color.White,
+                        Font = new Font("Segoe UI", 7F, FontStyle.Bold)
+                    };
+
+                    switch (disk.MediaType)
+                    {
+                        case "NVMe":
+                            lblType.BackColor = Color.FromArgb(34, 197, 94);
+                            break;
+
+                        case "SSD":
+                            lblType.BackColor = Color.FromArgb(59, 130, 246);
+                            break;
+
+                        default:
+                            lblType.BackColor = Color.FromArgb(107, 114, 128);
+                            break;
+                    }
+
+                    panel.Controls.Add(picture);
+                    panel.Controls.Add(lbl);
+                    panel.Controls.Add(lblCapacity);
+                    panel.Controls.Add(lblSerial);
+                    panel.Controls.Add(lblType);
+
+                    flowDisks.Controls.Add(panel);
+                }
+
+                switch (_computerInfoCache.ComputerType)
+                {
+                    case ComputerType.Desktop:
+                        pbDeviceType.Image = Resources.device_desktop;
+                        break;
+                    case ComputerType.AllInOne:
+                        pbDeviceType.Image = Resources.device_AllInOne;
+                        break;
+                    case ComputerType.Laptop:
+                        pbDeviceType.Image = Resources.device_laptop;
+                        break;
+                    default:
+                        pbDeviceType.Image = Resources.device_desktop;
+                        break;
+                }
+
+            }
         }
 
         // Evento Tick del temporizador en inglés
@@ -188,6 +279,11 @@ namespace presentation
 
             // Mostrar en MessageBox
             MessageBox.Show(sb.ToString(), "Nexora Agent - Full System Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

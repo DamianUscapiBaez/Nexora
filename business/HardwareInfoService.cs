@@ -200,51 +200,56 @@ namespace Business
 
         public static List<Disk> GetDisks()
         {
-            var disks = new List<Disk>();
-            var scope = new ManagementScope(@"\\.\root\Microsoft\Windows\Storage");
+            List<Disk> disks = new List<Disk>();
 
-            using (var searcher = new ManagementObjectSearcher(scope, new ObjectQuery("SELECT Model, Size, MediaType, BusType FROM MSFT_PhysicalDisk")))
+            try
             {
-                try
+                using (ManagementObjectSearcher searcher =
+                    new ManagementObjectSearcher(
+                        "SELECT Model, Size, SerialNumber, InterfaceType FROM Win32_DiskDrive"))
                 {
                     foreach (ManagementObject obj in searcher.Get())
                     {
-                        string model = obj["Model"]?.ToString()?.Trim() ?? "Unknown";
+                        string model = obj["Model"]?.ToString()?.Trim() ?? "Desconocido";
+                        string serial = obj["SerialNumber"]?.ToString()?.Trim() ?? "No disponible";
+                        string interfaceType = obj["InterfaceType"]?.ToString()?.Trim() ?? "";
 
-                        long sizeBytes = obj["Size"] != null ? Convert.ToInt64(obj["Size"]) : 0;
+                        long sizeBytes = obj["Size"] != null
+                            ? Convert.ToInt64(obj["Size"])
+                            : 0;
+
                         double sizeGb = sizeBytes / (1024.0 * 1024.0 * 1024.0);
-                        string capacityFormatted = FormatStorageSize(sizeGb);
+                        string capacity = FormatStorageSize(sizeGb);
 
                         string mediaType = "HDD";
-                        ushort typeCode = obj["MediaType"] != null ? Convert.ToUInt16(obj["MediaType"]) : (ushort)0;
-                        ushort busCode = obj["BusType"] != null ? Convert.ToUInt16(obj["BusType"]) : (ushort)0;
 
-                        if (typeCode == 4)
-                        {
-                            mediaType = (busCode == 17) ? "NVMe" : "SSD";
-                        }
-                        else if (model.ToUpper().Contains("NVME"))
-                        {
+                        string upperModel = model.ToUpper();
+
+                        if (upperModel.Contains("NVME"))
                             mediaType = "NVMe";
-                        }
-                        else if (model.ToUpper().Contains("SSD"))
-                        {
+                        else if (upperModel.Contains("SSD"))
                             mediaType = "SSD";
-                        }
+                        else if (interfaceType.Equals("NVMe", StringComparison.OrdinalIgnoreCase))
+                            mediaType = "NVMe";
+                        else if (interfaceType.Equals("SCSI", StringComparison.OrdinalIgnoreCase))
+                            mediaType = "SSD"; // Muchos SSD modernos aparecen como SCSI
 
                         disks.Add(new Disk
                         {
                             Model = model,
-                            CapacityGB = capacityFormatted,
+                            SerialNumber = serial,
+                            CapacityGB = capacity,
+                            InterfaceType = interfaceType,
                             MediaType = mediaType
                         });
                     }
                 }
-                catch
-                {
-                    return GetDisksFallback();
-                }
             }
+            catch
+            {
+                return new List<Disk>();
+            }
+
             return disks;
         }
 

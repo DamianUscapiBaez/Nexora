@@ -37,7 +37,6 @@
             lbTitle = new Label();
             lbSubTitle = new Label();
             mcrdComputerSummary = new ReaLTaiizor.Controls.MaterialCard();
-            pictureBox4 = new PictureBox();
             pbDeviceType = new PictureBox();
             lbOnTime = new Label();
             lbSumaryOnTime = new Label();
@@ -52,9 +51,27 @@
             lbSumaryModelAndBrand = new Label();
             lbSumaryHostname = new Label();
             pnlMain = new Panel();
-            materialCard1 = new ReaLTaiizor.Controls.MaterialCard();
-            materialCard2 = new ReaLTaiizor.Controls.MaterialCard();
-            materialCard3 = new ReaLTaiizor.Controls.MaterialCard();
+            mcrdRed = new ReaLTaiizor.Controls.MaterialCard();
+            flowReds = new FlowLayoutPanel();
+            lbCardRed = new Label();
+            pbSumaryRed = new PictureBox();
+            mcrdMonitor = new ReaLTaiizor.Controls.MaterialCard();
+            flowMonitors = new FlowLayoutPanel();
+            lbCardMonitor = new Label();
+            pbSumaryMonitor = new PictureBox();
+            mcrdDisk = new ReaLTaiizor.Controls.MaterialCard();
+            flowDisks = new FlowLayoutPanel();
+            lbCardDisk = new Label();
+            pbSumaryDisk = new PictureBox();
+            mcrdGpu = new ReaLTaiizor.Controls.MaterialCard();
+            lbGpuMemory = new Label();
+            lbSumaryManufacter = new Label();
+            lbSumaryMemory = new Label();
+            lbSumaryGpuName = new Label();
+            lbManufacturer = new Label();
+            lbGpuName = new Label();
+            lbCardGpu = new Label();
+            pbSumaryGpu = new PictureBox();
             mcrdRam = new ReaLTaiizor.Controls.MaterialCard();
             lbSumaryRamSlots = new Label();
             lbSumaryRamSeed = new Label();
@@ -80,6 +97,7 @@
             lbCardMicroprocessor = new Label();
             pbMicroProcessor = new PictureBox();
             mcrdSystem = new ReaLTaiizor.Controls.MaterialCard();
+            pbSumarySystem = new PictureBox();
             lbSumaryInstallationDate = new Label();
             lbInstallationDate = new Label();
             lbSumaryArchitecture = new Label();
@@ -96,14 +114,22 @@
             ((System.ComponentModel.ISupportInitialize)pbClose).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbMinimize).BeginInit();
             mcrdComputerSummary.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbDeviceType).BeginInit();
             pnlMain.SuspendLayout();
+            mcrdRed.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSumaryRed).BeginInit();
+            mcrdMonitor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSumaryMonitor).BeginInit();
+            mcrdDisk.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSumaryDisk).BeginInit();
+            mcrdGpu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSumaryGpu).BeginInit();
             mcrdRam.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbRam).BeginInit();
             mcrdMicroprocessor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbMicroProcessor).BeginInit();
             mcrdSystem.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSumarySystem).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbSystem).BeginInit();
             SuspendLayout();
             // 
@@ -124,13 +150,13 @@
             pnlTitleBar.Dock = DockStyle.Top;
             pnlTitleBar.Location = new Point(0, 0);
             pnlTitleBar.Name = "pnlTitleBar";
-            pnlTitleBar.Size = new Size(1500, 34);
+            pnlTitleBar.Size = new Size(1276, 34);
             pnlTitleBar.TabIndex = 0;
             // 
             // pbClose
             // 
             pbClose.Image = Properties.Resources.window_close;
-            pbClose.Location = new Point(1468, 6);
+            pbClose.Location = new Point(1236, 7);
             pbClose.Name = "pbClose";
             pbClose.Size = new Size(22, 22);
             pbClose.SizeMode = PictureBoxSizeMode.Zoom;
@@ -142,7 +168,7 @@
             // pbMinimize
             // 
             pbMinimize.Image = Properties.Resources.window_minimize;
-            pbMinimize.Location = new Point(1438, 6);
+            pbMinimize.Location = new Point(1206, 7);
             pbMinimize.Name = "pbMinimize";
             pbMinimize.Size = new Size(22, 22);
             pbMinimize.SizeMode = PictureBoxSizeMode.Zoom;
@@ -154,29 +180,28 @@
             // lbTitle
             // 
             lbTitle.AutoSize = true;
-            lbTitle.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbTitle.Font = new Font("Microsoft Sans Serif", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lbTitle.ForeColor = Color.Black;
-            lbTitle.Location = new Point(265, 45);
+            lbTitle.Location = new Point(265, 46);
             lbTitle.Name = "lbTitle";
-            lbTitle.Size = new Size(261, 31);
+            lbTitle.Size = new Size(209, 25);
             lbTitle.TabIndex = 1;
             lbTitle.Text = "Resumen del equipo";
             // 
             // lbSubTitle
             // 
             lbSubTitle.AutoSize = true;
-            lbSubTitle.Font = new Font("Microsoft Sans Serif", 11.9999981F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbSubTitle.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lbSubTitle.ForeColor = Color.Black;
-            lbSubTitle.Location = new Point(265, 89);
+            lbSubTitle.Location = new Point(265, 79);
             lbSubTitle.Name = "lbSubTitle";
-            lbSubTitle.Size = new Size(316, 20);
+            lbSubTitle.Size = new Size(266, 16);
             lbSubTitle.TabIndex = 2;
             lbSubTitle.Text = "información general de hardware y software";
             // 
             // mcrdComputerSummary
             // 
             mcrdComputerSummary.BackColor = Color.FromArgb(255, 255, 255);
-            mcrdComputerSummary.Controls.Add(pictureBox4);
             mcrdComputerSummary.Controls.Add(pbDeviceType);
             mcrdComputerSummary.Controls.Add(lbOnTime);
             mcrdComputerSummary.Controls.Add(lbSumaryOnTime);
@@ -192,30 +217,19 @@
             mcrdComputerSummary.Controls.Add(lbSumaryHostname);
             mcrdComputerSummary.Depth = 0;
             mcrdComputerSummary.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            mcrdComputerSummary.Location = new Point(265, 123);
+            mcrdComputerSummary.Location = new Point(265, 107);
             mcrdComputerSummary.Margin = new Padding(14);
             mcrdComputerSummary.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             mcrdComputerSummary.Name = "mcrdComputerSummary";
             mcrdComputerSummary.Padding = new Padding(14);
-            mcrdComputerSummary.Size = new Size(1214, 199);
+            mcrdComputerSummary.Size = new Size(993, 150);
             mcrdComputerSummary.TabIndex = 4;
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.BackColor = Color.Transparent;
-            pictureBox4.Image = Properties.Resources.fondo_system;
-            pictureBox4.Location = new Point(1014, 0);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(199, 199);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 45;
-            pictureBox4.TabStop = false;
             // 
             // pbDeviceType
             // 
-            pbDeviceType.Location = new Point(10, 9);
+            pbDeviceType.Location = new Point(0, 0);
             pbDeviceType.Name = "pbDeviceType";
-            pbDeviceType.Size = new Size(180, 180);
+            pbDeviceType.Size = new Size(190, 150);
             pbDeviceType.SizeMode = PictureBoxSizeMode.Zoom;
             pbDeviceType.TabIndex = 44;
             pbDeviceType.TabStop = false;
@@ -223,121 +237,121 @@
             // lbOnTime
             // 
             lbOnTime.AutoSize = true;
-            lbOnTime.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbOnTime.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbOnTime.ForeColor = Color.Black;
-            lbOnTime.Location = new Point(564, 137);
+            lbOnTime.Location = new Point(454, 106);
             lbOnTime.Name = "lbOnTime";
-            lbOnTime.Size = new Size(147, 16);
+            lbOnTime.Size = new Size(116, 13);
             lbOnTime.TabIndex = 43;
             lbOnTime.Text = "Tiempo activo (Uptime)";
             // 
             // lbSumaryOnTime
             // 
             lbSumaryOnTime.AutoSize = true;
-            lbSumaryOnTime.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbSumaryOnTime.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbSumaryOnTime.ForeColor = Color.DarkViolet;
-            lbSumaryOnTime.Location = new Point(730, 137);
+            lbSumaryOnTime.Location = new Point(609, 106);
             lbSumaryOnTime.Name = "lbSumaryOnTime";
-            lbSumaryOnTime.Size = new Size(111, 16);
+            lbSumaryOnTime.Size = new Size(96, 13);
             lbSumaryOnTime.TabIndex = 42;
             lbSumaryOnTime.Text = "PF4XXXXXXXXXX";
             // 
             // lbNumerSerie
             // 
             lbNumerSerie.AutoSize = true;
-            lbNumerSerie.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbNumerSerie.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbNumerSerie.ForeColor = Color.Black;
-            lbNumerSerie.Location = new Point(564, 91);
+            lbNumerSerie.Location = new Point(454, 65);
             lbNumerSerie.Name = "lbNumerSerie";
-            lbNumerSerie.Size = new Size(107, 16);
+            lbNumerSerie.Size = new Size(84, 13);
             lbNumerSerie.TabIndex = 41;
             lbNumerSerie.Text = "Número de serie";
             // 
             // lbSumaryNumberSerie
             // 
             lbSumaryNumberSerie.AutoSize = true;
-            lbSumaryNumberSerie.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbSumaryNumberSerie.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbSumaryNumberSerie.ForeColor = Color.DarkViolet;
-            lbSumaryNumberSerie.Location = new Point(730, 91);
+            lbSumaryNumberSerie.Location = new Point(609, 65);
             lbSumaryNumberSerie.Name = "lbSumaryNumberSerie";
-            lbSumaryNumberSerie.Size = new Size(111, 16);
+            lbSumaryNumberSerie.Size = new Size(96, 13);
             lbSumaryNumberSerie.TabIndex = 40;
             lbSumaryNumberSerie.Text = "PF4XXXXXXXXXX";
             // 
             // lbBrandAndModel
             // 
             lbBrandAndModel.AutoSize = true;
-            lbBrandAndModel.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbBrandAndModel.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbBrandAndModel.ForeColor = Color.Black;
-            lbBrandAndModel.Location = new Point(564, 45);
+            lbBrandAndModel.Location = new Point(454, 24);
             lbBrandAndModel.Name = "lbBrandAndModel";
-            lbBrandAndModel.Size = new Size(127, 16);
+            lbBrandAndModel.Size = new Size(103, 13);
             lbBrandAndModel.TabIndex = 39;
             lbBrandAndModel.Text = "Fabricante / Modelo";
             // 
             // lbSumaryTypeDevice
             // 
             lbSumaryTypeDevice.AutoSize = true;
-            lbSumaryTypeDevice.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbSumaryTypeDevice.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbSumaryTypeDevice.ForeColor = Color.DarkViolet;
-            lbSumaryTypeDevice.Location = new Point(353, 136);
+            lbSumaryTypeDevice.Location = new Point(327, 106);
             lbSumaryTypeDevice.Name = "lbSumaryTypeDevice";
-            lbSumaryTypeDevice.Size = new Size(58, 16);
+            lbSumaryTypeDevice.Size = new Size(47, 13);
             lbSumaryTypeDevice.TabIndex = 38;
             lbSumaryTypeDevice.Text = "Desktop";
             // 
             // lbTypeDevice
             // 
             lbTypeDevice.AutoSize = true;
-            lbTypeDevice.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbTypeDevice.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbTypeDevice.ForeColor = Color.Black;
-            lbTypeDevice.Location = new Point(232, 137);
+            lbTypeDevice.Location = new Point(206, 106);
             lbTypeDevice.Name = "lbTypeDevice";
-            lbTypeDevice.Size = new Size(99, 16);
+            lbTypeDevice.Size = new Size(78, 13);
             lbTypeDevice.TabIndex = 37;
             lbTypeDevice.Text = "Tipo de equipo";
             // 
             // lbSumaryCurrentUser
             // 
             lbSumaryCurrentUser.AutoSize = true;
-            lbSumaryCurrentUser.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbSumaryCurrentUser.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbSumaryCurrentUser.ForeColor = Color.DarkViolet;
-            lbSumaryCurrentUser.Location = new Point(353, 91);
+            lbSumaryCurrentUser.Location = new Point(327, 65);
             lbSumaryCurrentUser.Name = "lbSumaryCurrentUser";
-            lbSumaryCurrentUser.Size = new Size(54, 16);
+            lbSumaryCurrentUser.Size = new Size(43, 13);
             lbSumaryCurrentUser.TabIndex = 36;
             lbSumaryCurrentUser.Text = "Damian";
             // 
             // lbCurrentUser
             // 
             lbCurrentUser.AutoSize = true;
-            lbCurrentUser.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbCurrentUser.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbCurrentUser.ForeColor = Color.Black;
-            lbCurrentUser.Location = new Point(232, 92);
+            lbCurrentUser.Location = new Point(206, 65);
             lbCurrentUser.Name = "lbCurrentUser";
-            lbCurrentUser.Size = new Size(93, 16);
+            lbCurrentUser.Size = new Size(75, 13);
             lbCurrentUser.TabIndex = 35;
             lbCurrentUser.Text = "Usuario actual";
             // 
             // lbHostname
             // 
             lbHostname.AutoSize = true;
-            lbHostname.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbHostname.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbHostname.ForeColor = Color.Black;
-            lbHostname.Location = new Point(232, 47);
+            lbHostname.Location = new Point(206, 24);
             lbHostname.Name = "lbHostname";
-            lbHostname.Size = new Size(69, 16);
+            lbHostname.Size = new Size(55, 13);
             lbHostname.TabIndex = 34;
             lbHostname.Text = "Hostname";
             // 
             // lbSumaryModelAndBrand
             // 
             lbSumaryModelAndBrand.AutoSize = true;
-            lbSumaryModelAndBrand.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbSumaryModelAndBrand.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbSumaryModelAndBrand.ForeColor = Color.DarkViolet;
-            lbSumaryModelAndBrand.Location = new Point(730, 45);
+            lbSumaryModelAndBrand.Location = new Point(609, 24);
             lbSumaryModelAndBrand.Name = "lbSumaryModelAndBrand";
-            lbSumaryModelAndBrand.Size = new Size(136, 16);
+            lbSumaryModelAndBrand.Size = new Size(114, 13);
             lbSumaryModelAndBrand.TabIndex = 33;
             lbSumaryModelAndBrand.Text = "Lenovo / ThinkStation";
             // 
@@ -345,20 +359,21 @@
             // 
             lbSumaryHostname.AutoSize = true;
             lbSumaryHostname.BackColor = Color.Transparent;
-            lbSumaryHostname.Font = new Font("Microsoft Sans Serif", 9.749999F);
+            lbSumaryHostname.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbSumaryHostname.ForeColor = Color.DarkViolet;
-            lbSumaryHostname.Location = new Point(353, 46);
+            lbSumaryHostname.Location = new Point(327, 24);
             lbSumaryHostname.Name = "lbSumaryHostname";
-            lbSumaryHostname.Size = new Size(81, 16);
+            lbSumaryHostname.Size = new Size(66, 13);
             lbSumaryHostname.TabIndex = 32;
             lbSumaryHostname.Text = "PC-DAMIAN";
             // 
             // pnlMain
             // 
             pnlMain.BackColor = Color.FromArgb(250, 251, 253);
-            pnlMain.Controls.Add(materialCard1);
-            pnlMain.Controls.Add(materialCard2);
-            pnlMain.Controls.Add(materialCard3);
+            pnlMain.Controls.Add(mcrdRed);
+            pnlMain.Controls.Add(mcrdMonitor);
+            pnlMain.Controls.Add(mcrdDisk);
+            pnlMain.Controls.Add(mcrdGpu);
             pnlMain.Controls.Add(mcrdRam);
             pnlMain.Controls.Add(mcrdMicroprocessor);
             pnlMain.Controls.Add(mcrdSystem);
@@ -371,48 +386,249 @@
             pnlMain.ForeColor = Color.Black;
             pnlMain.Location = new Point(0, 0);
             pnlMain.Name = "pnlMain";
-            pnlMain.Size = new Size(1500, 900);
+            pnlMain.Size = new Size(1276, 865);
             pnlMain.TabIndex = 1;
             pnlMain.Paint += pnlMain_Paint;
             // 
-            // materialCard1
+            // mcrdRed
             // 
-            materialCard1.BackColor = Color.FromArgb(255, 255, 255);
-            materialCard1.Depth = 0;
-            materialCard1.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard1.Location = new Point(1070, 774);
-            materialCard1.Margin = new Padding(14);
-            materialCard1.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            materialCard1.Name = "materialCard1";
-            materialCard1.Padding = new Padding(14);
-            materialCard1.Size = new Size(390, 230);
-            materialCard1.TabIndex = 9;
+            mcrdRed.BackColor = Color.FromArgb(255, 255, 255);
+            mcrdRed.Controls.Add(flowReds);
+            mcrdRed.Controls.Add(lbCardRed);
+            mcrdRed.Controls.Add(pbSumaryRed);
+            mcrdRed.Depth = 0;
+            mcrdRed.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            mcrdRed.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            mcrdRed.Location = new Point(938, 470);
+            mcrdRed.Margin = new Padding(14);
+            mcrdRed.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            mcrdRed.Name = "mcrdRed";
+            mcrdRed.Padding = new Padding(14);
+            mcrdRed.Size = new Size(320, 376);
+            mcrdRed.TabIndex = 12;
             // 
-            // materialCard2
+            // flowReds
             // 
-            materialCard2.BackColor = Color.FromArgb(255, 255, 255);
-            materialCard2.Depth = 0;
-            materialCard2.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard2.Location = new Point(677, 595);
-            materialCard2.Margin = new Padding(14);
-            materialCard2.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            materialCard2.Name = "materialCard2";
-            materialCard2.Padding = new Padding(14);
-            materialCard2.Size = new Size(390, 230);
-            materialCard2.TabIndex = 8;
+            flowReds.AutoScroll = true;
+            flowReds.Location = new Point(17, 56);
+            flowReds.Name = "flowReds";
+            flowReds.Size = new Size(286, 298);
+            flowReds.TabIndex = 25;
             // 
-            // materialCard3
+            // lbCardRed
             // 
-            materialCard3.BackColor = Color.FromArgb(255, 255, 255);
-            materialCard3.Depth = 0;
-            materialCard3.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            materialCard3.Location = new Point(275, 595);
-            materialCard3.Margin = new Padding(14);
-            materialCard3.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            materialCard3.Name = "materialCard3";
-            materialCard3.Padding = new Padding(14);
-            materialCard3.Size = new Size(390, 230);
-            materialCard3.TabIndex = 7;
+            lbCardRed.AutoSize = true;
+            lbCardRed.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbCardRed.Location = new Point(55, 19);
+            lbCardRed.Name = "lbCardRed";
+            lbCardRed.Size = new Size(36, 16);
+            lbCardRed.TabIndex = 1;
+            lbCardRed.Text = "Red";
+            // 
+            // pbSumaryRed
+            // 
+            pbSumaryRed.Image = Properties.Resources.icon_ethernet;
+            pbSumaryRed.Location = new Point(17, 15);
+            pbSumaryRed.Name = "pbSumaryRed";
+            pbSumaryRed.Size = new Size(25, 25);
+            pbSumaryRed.SizeMode = PictureBoxSizeMode.Zoom;
+            pbSumaryRed.TabIndex = 0;
+            pbSumaryRed.TabStop = false;
+            // 
+            // mcrdMonitor
+            // 
+            mcrdMonitor.BackColor = Color.FromArgb(255, 255, 255);
+            mcrdMonitor.Controls.Add(flowMonitors);
+            mcrdMonitor.Controls.Add(lbCardMonitor);
+            mcrdMonitor.Controls.Add(pbSumaryMonitor);
+            mcrdMonitor.Depth = 0;
+            mcrdMonitor.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            mcrdMonitor.Location = new Point(601, 470);
+            mcrdMonitor.Margin = new Padding(14);
+            mcrdMonitor.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            mcrdMonitor.Name = "mcrdMonitor";
+            mcrdMonitor.Padding = new Padding(14);
+            mcrdMonitor.Size = new Size(320, 180);
+            mcrdMonitor.TabIndex = 9;
+            // 
+            // flowMonitors
+            // 
+            flowMonitors.AutoScroll = true;
+            flowMonitors.Location = new Point(17, 56);
+            flowMonitors.Name = "flowMonitors";
+            flowMonitors.Size = new Size(283, 107);
+            flowMonitors.TabIndex = 24;
+            // 
+            // lbCardMonitor
+            // 
+            lbCardMonitor.AutoSize = true;
+            lbCardMonitor.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbCardMonitor.Location = new Point(57, 19);
+            lbCardMonitor.Name = "lbCardMonitor";
+            lbCardMonitor.Size = new Size(58, 16);
+            lbCardMonitor.TabIndex = 23;
+            lbCardMonitor.Text = "Monitor";
+            // 
+            // pbSumaryMonitor
+            // 
+            pbSumaryMonitor.Image = Properties.Resources.icon_monitor;
+            pbSumaryMonitor.Location = new Point(17, 15);
+            pbSumaryMonitor.Name = "pbSumaryMonitor";
+            pbSumaryMonitor.Size = new Size(25, 25);
+            pbSumaryMonitor.SizeMode = PictureBoxSizeMode.Zoom;
+            pbSumaryMonitor.TabIndex = 22;
+            pbSumaryMonitor.TabStop = false;
+            // 
+            // mcrdDisk
+            // 
+            mcrdDisk.BackColor = Color.FromArgb(255, 255, 255);
+            mcrdDisk.Controls.Add(flowDisks);
+            mcrdDisk.Controls.Add(lbCardDisk);
+            mcrdDisk.Controls.Add(pbSumaryDisk);
+            mcrdDisk.Depth = 0;
+            mcrdDisk.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            mcrdDisk.Location = new Point(265, 470);
+            mcrdDisk.Margin = new Padding(14);
+            mcrdDisk.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            mcrdDisk.Name = "mcrdDisk";
+            mcrdDisk.Padding = new Padding(14);
+            mcrdDisk.Size = new Size(320, 180);
+            mcrdDisk.TabIndex = 8;
+            // 
+            // flowDisks
+            // 
+            flowDisks.AutoScroll = true;
+            flowDisks.FlowDirection = FlowDirection.TopDown;
+            flowDisks.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            flowDisks.Location = new Point(14, 43);
+            flowDisks.Margin = new Padding(0);
+            flowDisks.Name = "flowDisks";
+            flowDisks.Size = new Size(292, 123);
+            flowDisks.TabIndex = 12;
+            flowDisks.WrapContents = false;
+            // 
+            // lbCardDisk
+            // 
+            lbCardDisk.AutoSize = true;
+            lbCardDisk.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbCardDisk.Location = new Point(55, 19);
+            lbCardDisk.Name = "lbCardDisk";
+            lbCardDisk.Size = new Size(55, 16);
+            lbCardDisk.TabIndex = 11;
+            lbCardDisk.Text = "Discos";
+            // 
+            // pbSumaryDisk
+            // 
+            pbSumaryDisk.Image = Properties.Resources.icon_disk;
+            pbSumaryDisk.Location = new Point(17, 15);
+            pbSumaryDisk.Name = "pbSumaryDisk";
+            pbSumaryDisk.Size = new Size(25, 25);
+            pbSumaryDisk.SizeMode = PictureBoxSizeMode.Zoom;
+            pbSumaryDisk.TabIndex = 10;
+            pbSumaryDisk.TabStop = false;
+            pbSumaryDisk.Click += pictureBox2_Click;
+            // 
+            // mcrdGpu
+            // 
+            mcrdGpu.BackColor = Color.FromArgb(255, 255, 255);
+            mcrdGpu.Controls.Add(lbGpuMemory);
+            mcrdGpu.Controls.Add(lbSumaryManufacter);
+            mcrdGpu.Controls.Add(lbSumaryMemory);
+            mcrdGpu.Controls.Add(lbSumaryGpuName);
+            mcrdGpu.Controls.Add(lbManufacturer);
+            mcrdGpu.Controls.Add(lbGpuName);
+            mcrdGpu.Controls.Add(lbCardGpu);
+            mcrdGpu.Controls.Add(pbSumaryGpu);
+            mcrdGpu.Depth = 0;
+            mcrdGpu.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            mcrdGpu.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            mcrdGpu.Location = new Point(938, 274);
+            mcrdGpu.Margin = new Padding(14);
+            mcrdGpu.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            mcrdGpu.Name = "mcrdGpu";
+            mcrdGpu.Padding = new Padding(14);
+            mcrdGpu.Size = new Size(320, 180);
+            mcrdGpu.TabIndex = 7;
+            // 
+            // lbGpuMemory
+            // 
+            lbGpuMemory.AutoSize = true;
+            lbGpuMemory.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbGpuMemory.Location = new Point(17, 73);
+            lbGpuMemory.Name = "lbGpuMemory";
+            lbGpuMemory.Size = new Size(94, 13);
+            lbGpuMemory.TabIndex = 9;
+            lbGpuMemory.Text = "Memoria dedicada";
+            // 
+            // lbSumaryManufacter
+            // 
+            lbSumaryManufacter.AutoSize = true;
+            lbSumaryManufacter.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryManufacter.Location = new Point(132, 97);
+            lbSumaryManufacter.Name = "lbSumaryManufacter";
+            lbSumaryManufacter.Size = new Size(37, 13);
+            lbSumaryManufacter.TabIndex = 8;
+            lbSumaryManufacter.Text = "Nvidia";
+            // 
+            // lbSumaryMemory
+            // 
+            lbSumaryMemory.AutoSize = true;
+            lbSumaryMemory.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryMemory.Location = new Point(132, 73);
+            lbSumaryMemory.Name = "lbSumaryMemory";
+            lbSumaryMemory.Size = new Size(27, 13);
+            lbSumaryMemory.TabIndex = 7;
+            lbSumaryMemory.Text = "6Gb";
+            // 
+            // lbSumaryGpuName
+            // 
+            lbSumaryGpuName.AutoSize = true;
+            lbSumaryGpuName.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryGpuName.Location = new Point(132, 49);
+            lbSumaryGpuName.Name = "lbSumaryGpuName";
+            lbSumaryGpuName.Size = new Size(37, 13);
+            lbSumaryGpuName.TabIndex = 6;
+            lbSumaryGpuName.Text = "Nvidia";
+            // 
+            // lbManufacturer
+            // 
+            lbManufacturer.AutoSize = true;
+            lbManufacturer.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbManufacturer.Location = new Point(17, 97);
+            lbManufacturer.Name = "lbManufacturer";
+            lbManufacturer.Size = new Size(57, 13);
+            lbManufacturer.TabIndex = 4;
+            lbManufacturer.Text = "Fabricante";
+            // 
+            // lbGpuName
+            // 
+            lbGpuName.AutoSize = true;
+            lbGpuName.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbGpuName.Location = new Point(17, 49);
+            lbGpuName.Name = "lbGpuName";
+            lbGpuName.Size = new Size(44, 13);
+            lbGpuName.TabIndex = 2;
+            lbGpuName.Text = "Nombre";
+            // 
+            // lbCardGpu
+            // 
+            lbCardGpu.AutoSize = true;
+            lbCardGpu.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbCardGpu.Location = new Point(55, 19);
+            lbCardGpu.Name = "lbCardGpu";
+            lbCardGpu.Size = new Size(111, 16);
+            lbCardGpu.TabIndex = 1;
+            lbCardGpu.Text = "Tarjeta Gráfica";
+            // 
+            // pbSumaryGpu
+            // 
+            pbSumaryGpu.Image = Properties.Resources.icon_gpu;
+            pbSumaryGpu.Location = new Point(17, 15);
+            pbSumaryGpu.Name = "pbSumaryGpu";
+            pbSumaryGpu.Size = new Size(25, 25);
+            pbSumaryGpu.SizeMode = PictureBoxSizeMode.Zoom;
+            pbSumaryGpu.TabIndex = 0;
+            pbSumaryGpu.TabStop = false;
             // 
             // mcrdRam
             // 
@@ -429,101 +645,101 @@
             mcrdRam.Controls.Add(pbRam);
             mcrdRam.Depth = 0;
             mcrdRam.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            mcrdRam.Location = new Point(1089, 337);
+            mcrdRam.Location = new Point(601, 274);
             mcrdRam.Margin = new Padding(14);
             mcrdRam.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             mcrdRam.Name = "mcrdRam";
             mcrdRam.Padding = new Padding(14);
-            mcrdRam.Size = new Size(390, 230);
+            mcrdRam.Size = new Size(320, 180);
             mcrdRam.TabIndex = 6;
             // 
             // lbSumaryRamSlots
             // 
             lbSumaryRamSlots.AutoSize = true;
-            lbSumaryRamSlots.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbSumaryRamSlots.Location = new Point(170, 163);
+            lbSumaryRamSlots.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryRamSlots.Location = new Point(140, 126);
             lbSumaryRamSlots.Name = "lbSumaryRamSlots";
-            lbSumaryRamSlots.Size = new Size(43, 16);
+            lbSumaryRamSlots.Size = new Size(37, 13);
             lbSumaryRamSlots.TabIndex = 31;
             lbSumaryRamSlots.Text = "2 de 4";
             // 
             // lbSumaryRamSeed
             // 
             lbSumaryRamSeed.AutoSize = true;
-            lbSumaryRamSeed.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbSumaryRamSeed.Location = new Point(170, 127);
+            lbSumaryRamSeed.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryRamSeed.Location = new Point(140, 100);
             lbSumaryRamSeed.Name = "lbSumaryRamSeed";
-            lbSumaryRamSeed.Size = new Size(65, 16);
+            lbSumaryRamSeed.Size = new Size(56, 13);
             lbSumaryRamSeed.TabIndex = 30;
             lbSumaryRamSeed.Text = "5600 MHz";
             // 
             // lbSumaryRamType
             // 
             lbSumaryRamType.AutoSize = true;
-            lbSumaryRamType.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbSumaryRamType.Location = new Point(170, 91);
+            lbSumaryRamType.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryRamType.Location = new Point(140, 74);
             lbSumaryRamType.Name = "lbSumaryRamType";
-            lbSumaryRamType.Size = new Size(44, 16);
+            lbSumaryRamType.Size = new Size(37, 13);
             lbSumaryRamType.TabIndex = 29;
             lbSumaryRamType.Text = "DDR5";
             // 
             // lbSumaryCapacity
             // 
             lbSumaryCapacity.AutoSize = true;
-            lbSumaryCapacity.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbSumaryCapacity.Location = new Point(170, 55);
+            lbSumaryCapacity.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryCapacity.Location = new Point(140, 48);
             lbSumaryCapacity.Name = "lbSumaryCapacity";
-            lbSumaryCapacity.Size = new Size(43, 16);
+            lbSumaryCapacity.Size = new Size(37, 13);
             lbSumaryCapacity.TabIndex = 28;
             lbSumaryCapacity.Text = "32 GB";
             // 
             // lbRamSlots
             // 
             lbRamSlots.AutoSize = true;
-            lbRamSlots.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbRamSlots.Location = new Point(17, 163);
+            lbRamSlots.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbRamSlots.Location = new Point(23, 126);
             lbRamSlots.Name = "lbRamSlots";
-            lbRamSlots.Size = new Size(85, 16);
+            lbRamSlots.Size = new Size(67, 13);
             lbRamSlots.TabIndex = 27;
             lbRamSlots.Text = "Slots usados";
             // 
             // lbRamSeed
             // 
             lbRamSeed.AutoSize = true;
-            lbRamSeed.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbRamSeed.Location = new Point(17, 127);
+            lbRamSeed.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbRamSeed.Location = new Point(23, 100);
             lbRamSeed.Name = "lbRamSeed";
-            lbRamSeed.Size = new Size(69, 16);
+            lbRamSeed.Size = new Size(54, 13);
             lbRamSeed.TabIndex = 26;
             lbRamSeed.Text = "Velocidad";
             // 
             // lbRamType
             // 
             lbRamType.AutoSize = true;
-            lbRamType.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbRamType.Location = new Point(17, 91);
+            lbRamType.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbRamType.Location = new Point(23, 74);
             lbRamType.Name = "lbRamType";
-            lbRamType.Size = new Size(35, 16);
+            lbRamType.Size = new Size(28, 13);
             lbRamType.TabIndex = 25;
             lbRamType.Text = "Tipo";
             // 
             // lbCapacity
             // 
             lbCapacity.AutoSize = true;
-            lbCapacity.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbCapacity.Location = new Point(17, 55);
+            lbCapacity.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbCapacity.Location = new Point(23, 48);
             lbCapacity.Name = "lbCapacity";
-            lbCapacity.Size = new Size(132, 16);
+            lbCapacity.Size = new Size(103, 13);
             lbCapacity.TabIndex = 24;
             lbCapacity.Text = "Capacidad instalada";
             // 
             // lbCardRam
             // 
             lbCardRam.AutoSize = true;
-            lbCardRam.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbCardRam.Location = new Point(71, 22);
+            lbCardRam.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbCardRam.Location = new Point(57, 19);
             lbCardRam.Name = "lbCardRam";
-            lbCardRam.Size = new Size(115, 18);
+            lbCardRam.Size = new Size(104, 16);
             lbCardRam.TabIndex = 23;
             lbCardRam.Text = "Memoria RAM";
             // 
@@ -554,121 +770,121 @@
             mcrdMicroprocessor.Controls.Add(pbMicroProcessor);
             mcrdMicroprocessor.Depth = 0;
             mcrdMicroprocessor.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            mcrdMicroprocessor.Location = new Point(677, 337);
+            mcrdMicroprocessor.Location = new Point(265, 274);
             mcrdMicroprocessor.Margin = new Padding(14);
             mcrdMicroprocessor.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             mcrdMicroprocessor.Name = "mcrdMicroprocessor";
             mcrdMicroprocessor.Padding = new Padding(14);
-            mcrdMicroprocessor.Size = new Size(390, 230);
+            mcrdMicroprocessor.Size = new Size(320, 180);
             mcrdMicroprocessor.TabIndex = 6;
             // 
             // lbSumaryMaximumSeed
             // 
             lbSumaryMaximumSeed.AutoSize = true;
-            lbSumaryMaximumSeed.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbSumaryMaximumSeed.Location = new Point(159, 199);
+            lbSumaryMaximumSeed.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryMaximumSeed.Location = new Point(131, 145);
             lbSumaryMaximumSeed.Name = "lbSumaryMaximumSeed";
-            lbSumaryMaximumSeed.Size = new Size(60, 16);
+            lbSumaryMaximumSeed.Size = new Size(52, 13);
             lbSumaryMaximumSeed.TabIndex = 21;
             lbSumaryMaximumSeed.Text = "5.40 GHz";
             // 
             // lbMaxmumSeed
             // 
             lbMaxmumSeed.AutoSize = true;
-            lbMaxmumSeed.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbMaxmumSeed.Location = new Point(17, 199);
+            lbMaxmumSeed.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbMaxmumSeed.Location = new Point(20, 145);
             lbMaxmumSeed.Name = "lbMaxmumSeed";
-            lbMaxmumSeed.Size = new Size(119, 16);
+            lbMaxmumSeed.Size = new Size(92, 13);
             lbMaxmumSeed.TabIndex = 20;
             lbMaxmumSeed.Text = "Velocidad maxima";
             // 
             // lbSumaryBaseSpeed
             // 
             lbSumaryBaseSpeed.AutoSize = true;
-            lbSumaryBaseSpeed.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbSumaryBaseSpeed.Location = new Point(159, 163);
+            lbSumaryBaseSpeed.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryBaseSpeed.Location = new Point(131, 121);
             lbSumaryBaseSpeed.Name = "lbSumaryBaseSpeed";
-            lbSumaryBaseSpeed.Size = new Size(60, 16);
+            lbSumaryBaseSpeed.Size = new Size(52, 13);
             lbSumaryBaseSpeed.TabIndex = 19;
             lbSumaryBaseSpeed.Text = "3.40 GHz";
             // 
             // lbSumaryThreads
             // 
             lbSumaryThreads.AutoSize = true;
-            lbSumaryThreads.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbSumaryThreads.Location = new Point(159, 127);
+            lbSumaryThreads.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryThreads.Location = new Point(131, 97);
             lbSumaryThreads.Name = "lbSumaryThreads";
-            lbSumaryThreads.Size = new Size(21, 16);
+            lbSumaryThreads.Size = new Size(19, 13);
             lbSumaryThreads.TabIndex = 18;
             lbSumaryThreads.Text = "24";
             // 
             // lbSumaryCores
             // 
             lbSumaryCores.AutoSize = true;
-            lbSumaryCores.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbSumaryCores.Location = new Point(159, 91);
+            lbSumaryCores.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryCores.Location = new Point(131, 73);
             lbSumaryCores.Name = "lbSumaryCores";
-            lbSumaryCores.Size = new Size(21, 16);
+            lbSumaryCores.Size = new Size(19, 13);
             lbSumaryCores.TabIndex = 17;
             lbSumaryCores.Text = "12";
             // 
             // lbSumaryNameMicroprocessor
             // 
             lbSumaryNameMicroprocessor.AutoSize = true;
-            lbSumaryNameMicroprocessor.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbSumaryNameMicroprocessor.Location = new Point(159, 55);
+            lbSumaryNameMicroprocessor.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryNameMicroprocessor.Location = new Point(131, 49);
             lbSumaryNameMicroprocessor.Name = "lbSumaryNameMicroprocessor";
-            lbSumaryNameMicroprocessor.Size = new Size(126, 16);
+            lbSumaryNameMicroprocessor.Size = new Size(105, 13);
             lbSumaryNameMicroprocessor.TabIndex = 16;
             lbSumaryNameMicroprocessor.Text = "Interl Core i7-13700k";
             // 
             // lbBaseSpeed
             // 
             lbBaseSpeed.AutoSize = true;
-            lbBaseSpeed.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbBaseSpeed.Location = new Point(17, 163);
+            lbBaseSpeed.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbBaseSpeed.Location = new Point(20, 121);
             lbBaseSpeed.Name = "lbBaseSpeed";
-            lbBaseSpeed.Size = new Size(103, 16);
+            lbBaseSpeed.Size = new Size(80, 13);
             lbBaseSpeed.TabIndex = 15;
             lbBaseSpeed.Text = "Velocidad base";
             // 
             // lbThreads
             // 
             lbThreads.AutoSize = true;
-            lbThreads.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbThreads.Location = new Point(17, 127);
+            lbThreads.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbThreads.Location = new Point(20, 97);
             lbThreads.Name = "lbThreads";
-            lbThreads.Size = new Size(38, 16);
+            lbThreads.Size = new Size(30, 13);
             lbThreads.TabIndex = 14;
             lbThreads.Text = "Hilos";
             // 
             // lbCores
             // 
             lbCores.AutoSize = true;
-            lbCores.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lbCores.Location = new Point(17, 91);
+            lbCores.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbCores.Location = new Point(20, 73);
             lbCores.Name = "lbCores";
-            lbCores.Size = new Size(98, 16);
+            lbCores.Size = new Size(80, 13);
             lbCores.TabIndex = 13;
             lbCores.Text = "Núcleos físicos";
             // 
             // lnNameMicroprocessor
             // 
             lnNameMicroprocessor.AutoSize = true;
-            lnNameMicroprocessor.Font = new Font("Microsoft Sans Serif", 9.75F);
-            lnNameMicroprocessor.Location = new Point(17, 55);
+            lnNameMicroprocessor.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lnNameMicroprocessor.Location = new Point(20, 49);
             lnNameMicroprocessor.Name = "lnNameMicroprocessor";
-            lnNameMicroprocessor.Size = new Size(56, 16);
+            lnNameMicroprocessor.Size = new Size(44, 13);
             lnNameMicroprocessor.TabIndex = 12;
             lnNameMicroprocessor.Text = "Nombre";
             // 
             // lbCardMicroprocessor
             // 
             lbCardMicroprocessor.AutoSize = true;
-            lbCardMicroprocessor.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbCardMicroprocessor.Location = new Point(66, 22);
+            lbCardMicroprocessor.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbCardMicroprocessor.Location = new Point(55, 19);
             lbCardMicroprocessor.Name = "lbCardMicroprocessor";
-            lbCardMicroprocessor.Size = new Size(96, 18);
+            lbCardMicroprocessor.Size = new Size(88, 16);
             lbCardMicroprocessor.TabIndex = 11;
             lbCardMicroprocessor.Text = "Procesador";
             // 
@@ -685,6 +901,7 @@
             // mcrdSystem
             // 
             mcrdSystem.BackColor = Color.FromArgb(255, 255, 255);
+            mcrdSystem.Controls.Add(pbSumarySystem);
             mcrdSystem.Controls.Add(lbSumaryInstallationDate);
             mcrdSystem.Controls.Add(lbInstallationDate);
             mcrdSystem.Controls.Add(lbSumaryArchitecture);
@@ -700,111 +917,131 @@
             mcrdSystem.Depth = 0;
             mcrdSystem.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             mcrdSystem.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            mcrdSystem.Location = new Point(265, 337);
+            mcrdSystem.Location = new Point(265, 666);
             mcrdSystem.Margin = new Padding(14);
             mcrdSystem.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             mcrdSystem.Name = "mcrdSystem";
             mcrdSystem.Padding = new Padding(14);
-            mcrdSystem.Size = new Size(390, 230);
+            mcrdSystem.Size = new Size(656, 180);
             mcrdSystem.TabIndex = 5;
+            // 
+            // pbSumarySystem
+            // 
+            pbSumarySystem.Image = Properties.Resources.fondo_system;
+            pbSumarySystem.Location = new Point(385, 0);
+            pbSumarySystem.Name = "pbSumarySystem";
+            pbSumarySystem.Size = new Size(271, 180);
+            pbSumarySystem.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbSumarySystem.TabIndex = 45;
+            pbSumarySystem.TabStop = false;
             // 
             // lbSumaryInstallationDate
             // 
             lbSumaryInstallationDate.AutoSize = true;
-            lbSumaryInstallationDate.Location = new Point(163, 199);
+            lbSumaryInstallationDate.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryInstallationDate.Location = new Point(132, 145);
             lbSumaryInstallationDate.Name = "lbSumaryInstallationDate";
-            lbSumaryInstallationDate.Size = new Size(71, 16);
+            lbSumaryInstallationDate.Size = new Size(65, 13);
             lbSumaryInstallationDate.TabIndex = 11;
             lbSumaryInstallationDate.Text = "26/06/2026";
             // 
             // lbInstallationDate
             // 
             lbInstallationDate.AutoSize = true;
-            lbInstallationDate.Location = new Point(17, 199);
+            lbInstallationDate.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbInstallationDate.Location = new Point(17, 145);
             lbInstallationDate.Name = "lbInstallationDate";
-            lbInstallationDate.Size = new Size(131, 16);
+            lbInstallationDate.Size = new Size(105, 13);
             lbInstallationDate.TabIndex = 10;
             lbInstallationDate.Text = "Fecha de instalación";
             // 
             // lbSumaryArchitecture
             // 
             lbSumaryArchitecture.AutoSize = true;
-            lbSumaryArchitecture.Location = new Point(163, 163);
+            lbSumaryArchitecture.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryArchitecture.Location = new Point(132, 121);
             lbSumaryArchitecture.Name = "lbSumaryArchitecture";
-            lbSumaryArchitecture.Size = new Size(45, 16);
+            lbSumaryArchitecture.Size = new Size(38, 13);
             lbSumaryArchitecture.TabIndex = 9;
             lbSumaryArchitecture.Text = "64 bits";
             // 
             // lbSumaryCompilation
             // 
             lbSumaryCompilation.AutoSize = true;
-            lbSumaryCompilation.Location = new Point(163, 127);
+            lbSumaryCompilation.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryCompilation.Location = new Point(132, 97);
             lbSumaryCompilation.Name = "lbSumaryCompilation";
-            lbSumaryCompilation.Size = new Size(73, 16);
+            lbSumaryCompilation.Size = new Size(64, 13);
             lbSumaryCompilation.TabIndex = 8;
             lbSumaryCompilation.Text = "26100.1742";
             // 
             // lbSumaryVersion
             // 
             lbSumaryVersion.AutoSize = true;
-            lbSumaryVersion.Location = new Point(163, 91);
+            lbSumaryVersion.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryVersion.Location = new Point(132, 73);
             lbSumaryVersion.Name = "lbSumaryVersion";
-            lbSumaryVersion.Size = new Size(38, 16);
+            lbSumaryVersion.Size = new Size(33, 13);
             lbSumaryVersion.TabIndex = 7;
             lbSumaryVersion.Text = "24H2";
             // 
             // lbSumaryEdition
             // 
             lbSumaryEdition.AutoSize = true;
-            lbSumaryEdition.Location = new Point(163, 55);
+            lbSumaryEdition.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbSumaryEdition.Location = new Point(132, 49);
             lbSumaryEdition.Name = "lbSumaryEdition";
-            lbSumaryEdition.Size = new Size(102, 16);
+            lbSumaryEdition.Size = new Size(84, 13);
             lbSumaryEdition.TabIndex = 6;
             lbSumaryEdition.Text = "Windows 11 pro";
             // 
             // lbArchitecture
             // 
             lbArchitecture.AutoSize = true;
-            lbArchitecture.Location = new Point(17, 163);
+            lbArchitecture.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbArchitecture.Location = new Point(17, 121);
             lbArchitecture.Name = "lbArchitecture";
-            lbArchitecture.Size = new Size(78, 16);
+            lbArchitecture.Size = new Size(64, 13);
             lbArchitecture.TabIndex = 5;
             lbArchitecture.Text = "Arquitectura";
             // 
             // lbCompilation
             // 
             lbCompilation.AutoSize = true;
-            lbCompilation.Location = new Point(17, 127);
+            lbCompilation.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbCompilation.Location = new Point(17, 97);
             lbCompilation.Name = "lbCompilation";
-            lbCompilation.Size = new Size(123, 16);
+            lbCompilation.Size = new Size(96, 13);
             lbCompilation.TabIndex = 4;
             lbCompilation.Text = "Compilación (Build)";
             // 
             // lbVersion
             // 
             lbVersion.AutoSize = true;
-            lbVersion.Location = new Point(17, 91);
+            lbVersion.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbVersion.Location = new Point(17, 73);
             lbVersion.Name = "lbVersion";
-            lbVersion.Size = new Size(53, 16);
+            lbVersion.Size = new Size(42, 13);
             lbVersion.TabIndex = 3;
             lbVersion.Text = "Versión";
             // 
             // lbEdition
             // 
             lbEdition.AutoSize = true;
-            lbEdition.Location = new Point(17, 55);
+            lbEdition.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbEdition.Location = new Point(17, 49);
             lbEdition.Name = "lbEdition";
-            lbEdition.Size = new Size(52, 16);
+            lbEdition.Size = new Size(42, 13);
             lbEdition.TabIndex = 2;
             lbEdition.Text = "Edición";
             // 
             // lbCardSystem
             // 
             lbCardSystem.AutoSize = true;
-            lbCardSystem.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbCardSystem.Location = new Point(69, 22);
+            lbCardSystem.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbCardSystem.Location = new Point(55, 19);
             lbCardSystem.Name = "lbCardSystem";
-            lbCardSystem.Size = new Size(147, 18);
+            lbCardSystem.Size = new Size(135, 16);
             lbCardSystem.TabIndex = 1;
             lbCardSystem.Text = "Sistema Operativo";
             // 
@@ -822,7 +1059,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1500, 900);
+            ClientSize = new Size(1276, 865);
             Controls.Add(pnlMain);
             FormBorderStyle = FormBorderStyle.None;
             MaximumSize = new Size(1920, 1032);
@@ -837,10 +1074,21 @@
             ((System.ComponentModel.ISupportInitialize)pbMinimize).EndInit();
             mcrdComputerSummary.ResumeLayout(false);
             mcrdComputerSummary.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbDeviceType).EndInit();
             pnlMain.ResumeLayout(false);
             pnlMain.PerformLayout();
+            mcrdRed.ResumeLayout(false);
+            mcrdRed.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSumaryRed).EndInit();
+            mcrdMonitor.ResumeLayout(false);
+            mcrdMonitor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSumaryMonitor).EndInit();
+            mcrdDisk.ResumeLayout(false);
+            mcrdDisk.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSumaryDisk).EndInit();
+            mcrdGpu.ResumeLayout(false);
+            mcrdGpu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSumaryGpu).EndInit();
             mcrdRam.ResumeLayout(false);
             mcrdRam.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbRam).EndInit();
@@ -849,6 +1097,7 @@
             ((System.ComponentModel.ISupportInitialize)pbMicroProcessor).EndInit();
             mcrdSystem.ResumeLayout(false);
             mcrdSystem.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSumarySystem).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbSystem).EndInit();
             ResumeLayout(false);
         }
@@ -862,7 +1111,6 @@
         private Label lbTitle;
         private Label lbSubTitle;
         private ReaLTaiizor.Controls.MaterialCard mcrdComputerSummary;
-        private PictureBox pictureBox4;
         private PictureBox pbDeviceType;
         private Label lbOnTime;
         private Label lbSumaryOnTime;
@@ -880,9 +1128,6 @@
         private ReaLTaiizor.Controls.MaterialCard mcrdRam;
         private ReaLTaiizor.Controls.MaterialCard mcrdMicroprocessor;
         private ReaLTaiizor.Controls.MaterialCard mcrdSystem;
-        private ReaLTaiizor.Controls.MaterialCard materialCard1;
-        private ReaLTaiizor.Controls.MaterialCard materialCard2;
-        private ReaLTaiizor.Controls.MaterialCard materialCard3;
         private PictureBox pbSystem;
         private Label lbCardSystem;
         private Label lbSumaryArchitecture;
@@ -907,8 +1152,6 @@
         private Label lbInstallationDate;
         private Label lbSumaryMaximumSeed;
         private Label lbMaxmumSeed;
-        private Label label2;
-        private Label label3;
         private Label lbSumaryRamSlots;
         private Label lbSumaryRamSeed;
         private Label lbSumaryRamType;
@@ -919,5 +1162,32 @@
         private Label lbCapacity;
         private Label lbCardRam;
         private PictureBox pbRam;
+        private ReaLTaiizor.Controls.MaterialCard mcrdMonitor;
+        private Label lbCardMonitor;
+        private PictureBox pbSumaryMonitor;
+        private ReaLTaiizor.Controls.MaterialCard mcrdDisk;
+        private Label lbCardDisk;
+        private PictureBox pbSumaryDisk;
+        private ReaLTaiizor.Controls.MaterialCard mcrdGpu;
+        private Label label23;
+        private Label label24;
+        private Label label25;
+        private Label lbSumaryManufacter;
+        private Label lbSumaryMemory;
+        private Label lbSumaryGpuName;
+        private Label label29;
+        private Label lbManufacturer;
+        private Label label31;
+        private Label lbGpuName;
+        private Label lbCardGpu;
+        private PictureBox pbSumaryGpu;
+        private ReaLTaiizor.Controls.MaterialCard mcrdRed;
+        private Label lbCardRed;
+        private PictureBox pbSumaryRed;
+        private PictureBox pbSumarySystem;
+        private Label lbGpuMemory;
+        private FlowLayoutPanel flowReds;
+        private FlowLayoutPanel flowDisks;
+        private FlowLayoutPanel flowMonitors;
     }
 }
